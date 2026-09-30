@@ -1,0 +1,30 @@
+server:
+  port: 8080
+
+iot:
+  mqtt:
+    broker-url: ${MQTT_BROKER_URL:tcp://127.0.0.1:1883}
+    username: ${MQTT_USERNAME:esp32}
+    password: ${MQTT_PASSWORD:}
+    home-id: ${IOT_HOME_ID:home-01}
+    room-id: ${IOT_ROOM_ID:room-01}
+
+spring:
+  application:
+    name: backend-iot
+  datasource:
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/smarthome}
+    username: ${POSTGRES_USER:smarthome}
+    password: ${POSTGRES_PASSWORD:}
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://localhost:27017/smarthome}
+
+logging:
+  level:
+    com.iot: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.web.socket: DEBUG

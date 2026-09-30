@@ -1,0 +1,420 @@
+﻿1. Bảng Yêu Cầu Chức Năng (Functional Requirements - FR)
+Mã Yêu Cầu
+	Tên Chức Năng
+	Phân Hệ
+	Mô Tả Chi Tiết
+	Mức Độ Ưu Tiên
+	FR-01
+	Đăng ký & Đăng nhập
+	Quản trị & Người dùng
+	Hệ thống cho phép người dùng đăng ký, xác thực đăng nhập bảo mật (JWT) và đăng xuất khỏi tài khoản.
+	Bắt buộc (Must-have)
+	FR-02
+	Phân quyền truy cập
+	Quản trị & Người dùng
+	Phân biệt vai trò Quản trị viên (Chủ nhà - toàn quyền) và Thành viên (chỉ xem và điều khiển các thiết bị được cấp phép).
+	Có cũng được
+	FR-03
+	Quản lý Không gian & Thiết bị
+	Quản lý Thiết bị
+	Cho phép tạo, sửa, xóa cấu trúc Nhà/Phòng và gán thiết bị vào từng khu vực tương ứng.
+	Có cũng được
+	FR-04
+	Ghép nối & Giám sát kết nối
+	Quản lý Thiết bị
+	Hỗ trợ thêm thiết bị mới vào hệ thống; giám sát trạng thái Online/Offline của thiết bị dựa trên cơ chế Heartbeat.
+	Bắt buộc (Must-have)
+	FR-05
+	Thu thập dữ liệu cảm biến
+	Giám sát & Điều khiển
+	Liên tục nhận dữ liệu đo lường môi trường từ cảm biến (nhiệt độ, độ ẩm, độ sáng, nồng độ khói/gas, chuyển động).
+	Bắt buộc (Must-have)
+	FR-06
+	Điều khiển thiết bị trực tiếp
+	Giám sát & Điều khiển
+	Cho phép người dùng bật/tắt công tắc đèn, quạt, điều chỉnh tốc độ hoặc đóng/mở cửa/khóa thông minh tức thì.
+	Bắt buộc (Must-have)
+	FR-07
+	Phản hồi trạng thái phần cứng
+	Giám sát & Điều khiển
+	Đồng bộ trạng thái thực tế của thiết bị (Reported State) lên giao diện người dùng ngay khi thiết bị thay đổi trạng thái.
+	Bắt buộc (Must-have)
+	FR-08
+	Cấu hình Luật tự động hóa
+	Tự động hóa
+	Cho phép người dùng tự định nghĩa các quy tắc phản xạ dạng IF-THEN (Ví dụ: Nếu nồng độ gas vượt ngưỡng  Bật quạt thông gió).
+	Bắt buộc (Must-have)
+	FR-09
+	Tự động thực thi kịch bản
+	Tự động hóa
+	Động cơ luật (Rule Engine) tự động phân tích dữ liệu cảm biến đến để kích hoạt hành động tương ứng kèm cơ chế chống kích hoạt lặp (cooldown).
+	Bắt buộc (Must-have)
+	FR-10
+	Quản lý Chế độ ngữ cảnh (Scenes)
+	Quản lý Ngữ cảnh
+	Cung cấp và cho phép kích hoạt nhanh các chế độ cài đặt sẵn như Home (Ở nhà), Away (Đi vắng), Sleep (Đi ngủ).
+	Bắt buộc (Must-have)
+	FR-11
+	Cảnh báo An toàn & Cháy nổ
+	An toàn & An ninh
+	Tự động phát hiện nồng độ gas/khói vượt mức cho phép, kích hoạt còi báo động tại chỗ và gửi thông báo khẩn cấp tới người dùng.
+	Bắt buộc (Must-have)
+	FR-12
+	Báo động Đột nhập
+	An toàn & An ninh
+	Khi đang ở chế độ vũ trang (Away/Arm), nếu phát hiện chuyển động hoặc mở cửa trái phép, hệ thống kích hoạt chuông và báo động ngay lập tức.
+	Bắt buộc (Must-have)
+	FR-13
+	Xác nhận & Quản lý cảnh báo
+	An toàn & An ninh
+	Lưu trữ danh sách các cảnh báo an ninh, cho phép người dùng xem lại và xác nhận đã xử lý (Acknowledge).
+	Quan trọng (Should-have)
+	FR-14
+	Giám sát Video Camera trực tiếp
+	Đa phương tiện
+	Cho phép người dùng xem trực tiếp luồng video từ camera an ninh với độ trễ thấp thông qua giao thức WebRTC/RTSP.
+	Quan trọng (Should-have)
+	FR-15
+	Điều khiển bằng Giọng nói (AI Voice)
+	Tương tác Thông minh
+	Thu âm giọng nói, chuyển đổi thành văn bản (STT) và phân tích ý định (Intent Parsing/Tool Calling) để điều khiển thiết bị hoặc truy vấn trạng thái.
+	Quan trọng (Should-have)
+	FR-16
+	Phản hồi bằng Giọng nói (TTS)
+	Tương tác Thông minh
+	Chuyển đổi trạng thái thực thi hoặc câu trả lời của hệ thống thành âm thanh giọng nói (Text-to-Speech) để phản hồi lại người dùng.
+	Mở rộng (Could-have)
+	FR-17
+	Lưu trữ & Tra cứu nhật ký
+	Nhật ký & Thống kê
+	Lưu vết toàn bộ lịch sử đo lường cảm biến, lệnh điều khiển của người dùng và các sự kiện hệ thống; hỗ trợ lọc theo mốc thời gian.
+	Bắt buộc (Must-have)
+	FR-18
+	Biểu đồ trực quan hóa dữ liệu
+	Nhật ký & Thống kê
+	Thể hiện dữ liệu môi trường (nhiệt độ, độ ẩm, độ sáng) dưới dạng đồ thị biến thiên theo giờ/ngày/tuần.
+	Có cũng được
+	2. Bảng Yêu Cầu Phi Chức Năng (Non-Functional Requirements - NFR)
+Mã Yêu Cầu
+	Tiêu Chí Chất Lượng
+	Mô Tả Đặc Tả Kỹ Thuật
+	Chỉ Số Đánh Giá (Metric / Target)
+	NFR-01
+	Hiệu năng & Độ trễ (Performance)
+	Thời gian từ lúc người dùng thao tác điều khiển trên giao diện đến khi phần cứng nhận lệnh và phản hồi trạng thái.
+	 qua Internet;  trong mạng nội bộ LAN.
+	NFR-02
+	Độ trễ luồng Video (Streaming Latency)
+	Độ trễ khi xem trực tiếp hình ảnh camera giám sát.
+	 (sử dụng WebRTC).
+	NFR-03
+	Khả năng tự phục hồi (Reliability)
+	Thiết bị phần cứng và dịch vụ nền tảng tự động kết nối lại khi mạng Internet hoặc broker gián đoạn.
+	Tự động thử lại (Exponential Backoff); phục hồi kết nối  sau khi mạng có lại.
+	NFR-04
+	Tính khả dụng (Availability)
+	Tỉ lệ thời gian hệ thống vận hành liên tục, không bị treo hoặc sập máy chủ.
+	Cam kết đạt mức sẵn sàng $\ge 99\%$ trong quá trình vận hành.
+	NFR-05
+	Tính bảo mật đường truyền (Security)
+	Toàn bộ dữ liệu truyền thông qua Internet phải được mã hóa để ngăn chặn nghe lén hoặc tấn công Man-in-the-Middle.
+	Áp dụng TLS/SSL cho HTTP (HTTPS), WebSocket (WSS) và MQTT (MQTTS - Port 8883).
+	NFR-06
+	Xác thực & Kiểm soát truy cập (Access Control)
+	Ngăn chặn truy cập trái phép vào API và MQTT Broker; không cho phép tài khoản ẩn danh kết nối Broker.
+	JWT token có thời hạn; MQTT Broker bật cơ chế xác thực Username/Password.
+	NFR-07
+	Tính toàn vẹn & Phân tầng dữ liệu (Data Integrity)
+	Tách biệt hoàn toàn tầng dữ liệu truy xuất tức thời tốc độ cao và tầng dữ liệu lưu trữ lịch sử lâu dài.
+	Dùng bộ nhớ Cache In-Memory (Redis) cho trạng thái tức thời; Document Database (MongoDB) cho dữ liệu lịch sử.
+	NFR-08
+	Khả năng mở rộng (Scalability)
+	Kiến trúc hệ thống cho phép mở rộng kết nối thêm thiết bị IoT và người dùng mới mà không cần sửa đổi kiến trúc lõi.
+	Giao thức MQTT theo mô hình Pub/Sub cho phép kết nối hàng trăm thiết bị đồng thời.
+	NFR-09
+	Tính sử dụng (Usability)
+	Giao diện điều khiển thân thiện, trực quan, thể hiện rõ ràng trạng thái bật/tắt và số liệu cảm biến dễ đọc trên cả máy tính và thiết bị di động.
+	Thời gian làm quen hệ thống của người dùng mới .
+	
+
+1. Danh sách các Tác nhân (Actors)
+* Chủ nhà / Quản trị viên (Admin / Home Owner): Người có toàn quyền quản trị hệ thống, cài đặt và phân quyền.
+* Thành viên gia đình (Resident / User): Kế thừa từ Người dùng nói chung, có quyền giám sát, điều khiển thường nhật.
+* Cảm biến (Sensor Node): Tác nhân phần cứng chủ động thu thập và gửi dữ liệu môi trường.
+* Cơ cấu chấp hành (Actuator Node): Tác nhân phần cứng tiếp nhận lệnh điều khiển và phản hồi trạng thái.
+* Dịch vụ AI / Giọng nói (External AI / Voice Service): Hệ thống bên ngoài hỗ trợ nhận dạng giọng nói (STT) và phân tích ý định (LLM/Intent Parser).
+* Hệ thống thông báo bên ngoài (Notification Gateway - FCM/Telegram): Đẩy tin nhắn báo động khẩn cấp tới điện thoại.
+2. Danh sách Use Case gom theo 5 Phân hệ chính
+Phân hệ 1: Quản trị & Thiết lập hệ thống (System & Device Administration)
+* UC01: Đăng nhập / Đăng xuất hệ thống (Kèm kiểm tra xác thực JWT)
+* UC02: Quản lý cấu trúc Nhà & Phòng (Thêm, sửa, xóa phòng/khu vực)
+* UC03: Quản lý & Ghép nối thiết bị (Thêm thiết bị mới, gán vào phòng, xem trạng thái Online/Offline)
+* UC04: Cấu hình quy tắc tự động hóa (Automation Rules) (Tạo/sửa/bật/tắt luật IF-THEN)
+* UC05: Cấu hình kịch bản ngữ cảnh (Scenes) (Tạo/sửa kịch bản Home, Away, Sleep)
+Phân hệ 2: Giám sát & Điều khiển thường nhật (Monitoring & Control)
+* UC06: Giám sát trạng thái nhà thời gian thực (Xem thông số cảm biến, trạng thái bật/tắt thiết bị)
+* UC07: Điều khiển thiết bị thủ công (Bật/tắt đèn, quạt, đóng/mở cửa/rèm)
+* UC08: Kích hoạt chế độ ngữ cảnh (Scenes) (Bật chế độ Home/Away/Sleep)
+* UC09: Điều khiển bằng giọng nói (Voice Control)
+   * <> UC09.1: Xử lý giọng nói & Phân tích ý định (Gọi sang External AI Service)
+* UC10: Xem video camera trực tiếp (Xem luồng live stream qua WebRTC)
+Phân hệ 3: Tự động hóa & Vận hành phần cứng (IoT & Automation Flow)
+* UC11: Gửi dữ liệu đo lường môi trường (Report Telemetry) (Actor kích hoạt: Sensor Node)
+* UC12: Tự động thực thi kịch bản (Execute Automation Rule) (Hệ thống tự động so khớp điều kiện và phát lệnh)
+* UC13: Cập nhật trạng thái phần cứng (Report Device State) (Actor: Actuator Node xác nhận trạng thái thực tế)
+* UC14: Giám sát kết nối thiết bị (Heartbeat/Keep-alive) (Hệ thống tự động phát hiện thiết bị mất kết nối)
+Phân hệ 4: An toàn & An ninh (Safety & Security)
+* UC15: Phát hiện sự cố & Báo động (Trigger Alarm) (Khói, rò rỉ gas, đột nhập)
+   * <> UC15.1: Gửi thông báo khẩn cấp (Gọi sang Notification Gateway khi có sự cố nghiêm trọng)
+* UC16: Xác nhận & Xử lý cảnh báo (Acknowledge Alert) (Người dùng xác nhận đã biết và tắt chuông)
+Phân hệ 5: Nhật ký & Báo cáo (Audit Log & Analytics)
+* UC17: Tra cứu lịch sử hoạt động (Xem nhật ký bật/tắt, nhật ký cảnh báo theo thời gian)
+* UC18: Xem biểu đồ thống kê môi trường (Đồ thị nhiệt độ, độ ẩm, độ sáng)
+
+
+  
+
+
+
+
+
+Dưới đây là danh sách UC đã chốt. Mức ưu tiên:
+* P0: Bắt buộc, cần hoàn thành để bảo vệ.
+* P1: Quan trọng, thể hiện đúng điểm nổi bật của đề tài.
+* P2: Mở rộng, làm khi còn thời gian.
+Phân hệ 1: Quản trị và thiết lập
+* UC01 – Đăng nhập và đăng xuất [P0]
+Xác thực tài khoản, cấp JWT và kết thúc phiên.
+* UC02 – Quản lý người dùng và phân quyền [P1]
+Admin quản lý thành viên và quyền truy cập. MVP có thể chỉ cần hai role Admin/Resident.
+* UC03 – Quản lý cấu trúc nhà và phòng [P0]
+Thêm, sửa, xóa nhà, phòng hoặc khu vực.
+* UC04 – Quản lý và ghép nối thiết bị [P0]
+Đăng ký ESP32, sensor, actuator, camera; gán phòng và xem Online/Offline.
+* UC05 – Cấu hình quy tắc tự động hóa [P0]
+Tạo, sửa, bật/tắt luật IF–THEN, ngưỡng, cooldown.
+* UC06 – Cấu hình Scene [P1]
+Tạo, sửa Home, Away, Sleep hoặc Scene tùy chỉnh.
+Phân hệ 2: Giám sát và điều khiển
+   * UC07 – Giám sát trạng thái nhà thời gian thực [P0]
+Xem dữ liệu sensor, trạng thái thiết bị, node và cảnh báo qua WebSocket.
+   * UC08 – Điều khiển thiết bị thủ công [P0]
+Bật/tắt đèn, quạt; mở/đóng cửa hoặc rèm.
+   * UC09 – Kích hoạt Scene [P1]
+Kích hoạt Home, Away, Sleep.
+   * UC10 – Tương tác bằng giọng nói [P0]
+Điều khiển thiết bị, kích hoạt Scene, hỏi trạng thái hoặc lịch sử. Đây là UC quan trọng vì đề tài có AI Voice.
+   * UC10.1 – Xử lý giọng nói và phân tích ý định [P0]
+STT → LLM/Intent Parser → Structured Output.
+Quan hệ: UC10 <<include>> UC10.1.
+   * UC10.2 – Xác nhận lệnh nhạy cảm [P0]
+Xác nhận trước khi mở cửa, cổng hoặc thực hiện hành động an ninh.
+Quan hệ: UC10.2 <<extend>> UC10.
+   * UC11 – Xem video và audio trực tiếp [P1]
+Xem luồng WebRTC từ Virtual Camera/Microphone. Có thể làm video trước, audio sau.
+Phân hệ 3: IoT và tự động hóa
+      * UC12 – Gửi dữ liệu telemetry [P0]
+Sensor Node gửi nhiệt độ, độ ẩm, ánh sáng, PIR, gas/khói.
+      * UC13 – Gửi sự kiện multimedia [P1]
+Virtual Camera/Microphone gửi motion event, sound event và snapshot metadata.
+      * UC14 – Đánh giá và thực thi Automation Rule [P0]
+Kiểm tra điều kiện, cooldown và phát lệnh điều khiển hoặc tạo cảnh báo.
+      * UC15 – Cập nhật trạng thái phần cứng [P0]
+Actuator gửi reported state sau khi thực thi lệnh.
+      * UC16 – Giám sát kết nối thiết bị [P0]
+Nhận heartbeat, TTL/Last Will và chuyển node sang Online/Offline.
+Phân hệ 4: An toàn và an ninh
+         * UC17 – Phát hiện sự cố và tạo cảnh báo [P0]
+Xử lý gas/khói, chuyển động khi Away, tiếng ồn bất thường và mất kết nối.
+         * UC17.1 – Gửi thông báo khẩn cấp [P2]
+Gửi Web Push, Telegram, email hoặc FCM khi cảnh báo nghiêm trọng.
+Quan hệ: UC17.1 <<extend>> UC17.
+         * UC18 – Tra cứu, xác nhận và xử lý cảnh báo [P0]
+Xem chi tiết, đánh dấu đã biết/đã xử lý; chỉ thêm “tắt chuông” nếu có actuator siren.
+Phân hệ 5: Nhật ký và báo cáo
+            * UC19 – Tra cứu lịch sử hoạt động [P0]
+Xem telemetry, command, reported state, automation, alert, camera event và voice-command audit.
+            * UC20 – Xem biểu đồ thống kê [P1]
+Biểu đồ nhiệt độ, độ ẩm, ánh sáng và số lượng sự kiện theo thời gian.
+Để bảo vệ được luồng end-to-end, cần ưu tiên chắc chắn: UC01, UC03–05, UC07–08, UC10–10.2, UC12, UC14–19. UC11, UC13 và UC20 giúp bài làm nổi bật hơn; UC17.1 là phần mở rộng có thể để sau.
+
+
+Kịch bản 1 giải quyết bài toán: Quản lý vòng đời thiết bị & Luồng dữ liệu vào (Data Ingestion).
+• UC03: Quản lý & Ghép nối thiết bị 
+• UC14: Giám sát kết nối (Heartbeat)
+• UC11: Gửi dữ liệu cảm biến (Telemetry)
+
+
+Kịch bản 2 giải quyết bài toán: Luồng điều khiển ra (Actuation & Reported State).
+
+
+• UC07: Điều khiển thiết bị thủ công (hoặc UC09 / UC09.1: Điều khiển bằng giọng nói) 
+• UC13: Cập nhật trạng thái phần cứng
+• UC06: Giám sát trạng thái nhà thời gian thực
+• UC17: Tra cứu lịch sử hoạt động | • Giai đoạn Ra lệnh: Người dùng bấm nút trên Web (UC07) hoặc ra lệnh qua giọng nói AI (UC09  UC09.1). Backend nhận lệnh, kiểm tra quyền và publish MQTT topic .
+• Giai đoạn Thực thi & Phản hồi: Actuator (ESP32) nhận lệnh, kích hoạt Relay/Servo thật và gửi bản tin xác nhận trạng thái  (UC13).
+• Giai đoạn Đồng bộ & Lưu vết: Backend nhận reported state, lưu Redis và đẩy WebSocket để cập nhật icon trên Web (UC06), đồng thời ghi nhật ký audit log vào MongoDB (UC17). |
+
+
+
+
+Kịch bản 3 giải quyết bài toán: Tự động hóa thông minh & An toàn an ninh (Automation & Safety).
+
+
+UC11: Gửi dữ liệu cảm biến (Telemetry)
+
+
+• UC12: Tự động thực thi kịch bản
+
+
+• UC15: Phát hiện sự cố & Báo động
+
+
+• UC15.1: Gửi thông báo khẩn cấp
+
+
+• UC16: Xác nhận & Xử lý cảnh báo | • Giai đoạn Kích hoạt: Cảm biến (MQ-2 / Khói / Gas / PIR) gửi dữ liệu vượt ngưỡng an toàn (UC11).
+
+
+• Giai đoạn Đánh giá & Phát lệnh tự động: Rule Engine tại Backend bắt sự kiện, so khớp điều kiện (UC12), kích hoạt trạng thái báo động khẩn cấp (UC15) và đẩy thông báo khẩn cấp (Push notification/Telegram) về điện thoại người dùng (UC15.1). Đồng thời có thể tự bật quạt thông gió (UC12  UC13).
+
+
+• Giai đoạn Xử lý: Người dùng nhận được chuông/tin báo trên Web, sau khi kiểm tra thì bấm nút "Xác nhận đã xử lý / Acknowledge" để tắt còi báo động (UC16). |
+
+
+Dự kiến: Chia thành 4 phần (FE, BE, AI, IoT) cho 4 người: (làm xong phần nào đánh dấu x phần đó)
+
+
+Vị trí
+	Chịu trách nhiệm chính (Lead)
+	Phối hợp thực hiện
+	Cả nhóm
+	01, 02, 05, 06, 07, 10, 11, 47, 48
+	-
+	IoT Hardware
+	14, 15, 16, 17
+	18, 19, 20, 21, 22, 27, 28, 29
+	Backend 
+	09, 12, 13, 25, 26, 30, 31, 32, 33, 34, 35, 36, 37, 39, 44, 46
+	18, 19, 20, 21, 22, 23, 24, 27, 28, 29, 41
+	Frontend 
+	43, 45
+	23, 24, 34
+	AI / Multimedia
+	38, 40, 41, 42
+	41, 43
+	
+        
+GIAI ĐOẠN I: TỔNG QUAN, BỐI CẢNH & PHÂN TÍCH YÊU CẦU
+               * [ ] 01. Xác định bối cảnh đề tài, bài toán cần giải quyết và đối tượng sử dụng hệ thống.
+               * [ ] 02. Trình bày lý do tại sao bài toán cần giải pháp IoT thay vì phần mềm thông thường.
+               * [x] 03. Bảng đặc tả Yêu cầu chức năng (Functional Requirements - FR) đầy đủ các phân hệ.
+               * [x] 04. Bảng đặc tả Yêu cầu phi chức năng (Non-Functional Requirements - NFR: độ trễ, phục hồi, bảo mật).
+               * [ ] 05. Các ràng buộc hệ thống (chi phí, năng lượng, mạng, độ trễ, an toàn, quyền riêng tư).
+               * [ ] 06. Tiêu chí đo lường đánh giá mức độ thành công của sản phẩm.
+               * [ ] 07. Sơ đồ bối cảnh hệ thống (System Context Diagram).
+               * [x] 08. Sơ đồ Use Case tổng quát (High-level Use Case Diagram) chuẩn UML.
+               * [ ] 09. Kịch bản chi tiết (Use Case Scenarios) cho 3 ca sử dụng cốt lõi: Gửi telemetry | Điều khiển thiết bị | Kích hoạt cảnh báo an toàn. (UC11: Gửi dữ liệu cảm biến (Telemetry) | UC09 / UC09.1: Điều khiển bằng giọng nói | UC15: Phát hiện sự cố & Báo động) 
+GIAI ĐOẠN II: KIẾN TRÚC HỆ THỐNG & SƠ ĐỒ TRIỂN KHAI
+               * [ ] 10. Sơ đồ kiến trúc tổng thể của hệ thống Smart Home.
+               * [ ] 11. Sơ đồ phân tầng hệ thống (Lớp thiết bị, kết nối mạng, backend, dữ liệu, ứng dụng).
+               * [ ] 12. Sơ đồ triển khai hệ thống (Deployment Diagram) trên Oracle Cloud VM và Docker Containers (Mosquitto, Redis, MongoDB, Spring Boot).
+               * [ ] 13. Giải thích cơ chế dự phòng và xử lý hoạt động khi mất kết nối Internet/ngoại mạng (Offline Autonomy).
+GIAI ĐOẠN III: THIẾT KẾ PHẦN CỨNG (HARDWARE)
+               * [ ] 14. Bảng danh mục linh kiện phần cứng (BOM - Bill of Materials) và thông số kỹ thuật (ESP32-N8R16, DHT22, LDR/BH1750, PIR, MQ-2, Relay, Servo).
+               * [ ] 15. Sơ đồ khối phần cứng (Hardware Block Diagram: Khối nguồn, MCU, Khối cảm biến, Khối chấp hành).
+               * [ ] 16. Sơ đồ nối dây chi tiết (Wiring Diagram / Schematic) định rõ chân GPIO giao tiếp (Fritzing/Wokwi).
+               * [ ] 17. Thiết kế luồng xử lý phần cứng: đọc dữ liệu, cơ chế tự kết nối lại Wi-Fi/MQTT (Auto-reconnect), xử lý mất mạng.
+GIAI ĐOẠN IV: THIẾT KẾ GIAO THỨC, DỮ LIỆU & TRÌNH TỰ (PROTOCOLS & FLOWS)
+               * [ ] 18. Bảng quy ước định danh thiết bị (Device Naming Convention & Unique ID).
+               * [ ] 19. Thiết kế cấu trúc các Topic MQTT phân cấp hai chiều (telemetry, set, state, heartbeat, status).
+               * [ ] 20. Đặc tả định dạng bản tin JSON Payload cho từng topic MQTT (kèm đơn vị đo và timestamp epoch).
+               * [ ] 21. Thiết kế cơ chế phát hiện thiết bị Online / Offline (Heartbeat định kỳ + MQTT Last Will & Testament - LWT).
+               * [ ] 22. Đặc tả chính sách QoS, Timeout, Retry và cơ chế chống xử lý bản tin trùng lặp (Idempotency).
+               * [ ] 23. Bảng đặc tả toàn bộ REST API (Method, Endpoint, Request Body, Response Code).
+               * [ ] 24. Đặc tả các bản tin sự kiện Realtime qua WebSocket STOMP (/topic/events).
+               * [ ] 25. Sơ đồ tuần tự (Sequence Diagram) 1: Quy trình thu thập telemetry và kích hoạt Rule tự động.
+               * [ ] 26. Sơ đồ tuần tự (Sequence Diagram) 2: Quy trình gửi lệnh điều khiển từ Web đến phần cứng và phản hồi Reported State.
+               * [ ] 27. Sơ đồ tuần tự (Sequence Diagram) 3: Quy trình đăng ký, cấp quyền và kết nối ban đầu của thiết bị (Onboarding Flow).
+GIAI ĐOẠN V: QUẢN LÝ VÒNG ĐỜI THIẾT BỊ (DEVICE LIFECYCLE)
+               * [ ] 28. Mô hình máy trạng thái Vòng đời thiết bị (Device Lifecycle State Machine Diagram):
+$$\text{Registered} \longrightarrow \text{Provisioned} \longrightarrow \text{Active} \longleftrightarrow \text{Offline/Fault} \longrightarrow \text{Decommissioned}$$
+               * [ ] 29. Đặc tả quy trình kỹ thuật cho từng bước trong vòng đời (Onboarding, Kích hoạt, Cấu hình từ xa, Tạm khóa, Thu hồi, Decommission).
+GIAI ĐOẠN VI: THIẾT KẾ CƠ SỞ DỮ LIỆU & LỚP NGHIỆP VỤ (DATABASE & DOMAIN)
+               * [ ] 30. Mô hình dữ liệu quan hệ / Tài liệu (ERD hoặc MongoDB Document Schema chi tiết).
+               * [ ] 31. Thiết kế cấu trúc các Collection MongoDB: users, homes, rooms, devices, sensors, sensor_readings, device_events, automation_rules, alerts kèm định nghĩa Index tối ưu truy vấn.
+               * [ ] 32. Thiết kế cấu trúc Key/Value và TTL trong bộ nhớ đệm In-Memory Redis (Trạng thái thiết bị tức thời, heartbeat cache, active alerts).
+               * [ ] 33. Sơ đồ lớp miền tổng quát (Domain Model / Class Diagram) cho Backend Spring Boot.
+GIAI ĐOẠN VII: BẢO MẬT, PHÂN QUYỀN & QUYỀN RIÊNG TƯ (SECURITY & RBAC)
+               * [ ] 34. Ma trận phân quyền theo vai trò (RBAC Matrix) tối thiểu 3 vai trò: Quản trị viên (Admin), Người vận hành/Chủ nhà (Owner), Người xem/Khách (Guest).
+               * [ ] 35. Thiết kế cơ chế băm mật khẩu an toàn (BCrypt/Argon2) và quản lý phiên bằng JWT Token.
+               * [ ] 36. Thiết kế bảo mật giao tiếp: Cấu hình xác thực tài khoản MQTT Broker (bỏ Anonymous), mã hóa TLS/HTTPS/MQTTS.
+               * [ ] 37. Mô hình nhận diện mối đe dọa (Threat Model - STRIDE) và các giải pháp phòng chống tương ứng.
+               * [ ] 38. Chính sách bảo vệ dữ liệu cá nhân, quyền riêng tư đối với hình ảnh Webcam và âm thanh Microphone.
+               * [ ] 39. Thiết kế Audit Log ghi vết các thao tác điều khiển nhạy cảm và thay đổi cấu hình.
+GIAI ĐOẠN VIII: THIẾT KẾ CHỨC NĂNG NÂNG CAO (AI VOICE & DIGITAL TWIN)
+               * [ ] 40. Sơ đồ khối tích hợp luồng xử lý AI Voice Assistant (Microphone  STT  LLM/Intent Parser  Spring Boot Orchestrator  MQTT  TTS).
+               * [ ] 41. Bản đặc tả Schema Tool Calling / Function Calling cho LLM (controlDevice, queryState, activateScene).
+               * [ ] 42. Thiết kế kiến trúc truyền thông Video/Audio độ trễ thấp qua WebRTC cho Virtual Camera/Microphone node.
+               * [ ] 43. Wireframe / Mockup giao diện người dùng: Dashboard, Sơ đồ căn nhà Digital Twin, Màn hình Rule Automation, Biểu đồ lịch sử, Quản lý cảnh báo.
+GIAI ĐOẠN IX: KẾ HOẠCH KIỂM THỬ VÀ TỔ CHỨC DỰ ÁN
+                  * [ ] 44. Bảng kế hoạch kiểm thử chức năng (Functional Test Plan) bao phủ tối thiểu 8 quy trình bắt buộc trong đề bài.
+                  * [ ] 45. Bảng kế hoạch kiểm thử phi chức năng (Non-Functional Test Plan): Đo độ trễ điều khiển, độ trễ video, mất gói, kiểm thử chịu tải thiết bị.
+                  * [ ] 46. Kế hoạch kiểm thử bảo mật (Security Tests): Kiểm thử token hết hạn, kiểm thử phân quyền trái phép, kiểm thử thiết bị bị thu hồi gửi dữ liệu.
+                  * [ ] 47. Thiết lập cấu trúc Repository GitHub của nhóm đúng chuẩn các thư mục quy định (firmware/, backend/, frontend/, database/, deployment/, hardware/, tests/, docs/, .env.example).
+                  * [ ] 48. Bảng phân công trách nhiệm chi tiết cho 4 thành viên (WBS - Work Breakdown Structure) và kế hoạch theo từng mốc thời gian (Milestones).
+
+
+Lấy ví dụ mức trung bình: UC08 – Điều khiển thiết bị thủ công. UC này có người dùng, phần cứng, kiểm tra quyền, MQTT và cập nhật realtime nên khá đại diện.
+Cách vẽ UC
+  
+
+Khi vẽ bằng StarUML hoặc draw.io:
+                  * Người dùng đặt bên trái.
+                  * Actuator Node đặt bên phải.
+                  * Các UC đặt trong khung Hệ thống Smart Home.
+                  * UC08 là UC chính, đặt ở giữa.
+                  * UC08.1 và UC08.2 nằm phía dưới UC08.
+                  * Dùng nét đứt <<include>> từ UC08 đến UC08.1 và UC08.2.
+                  * Actuator Node là actor phụ, nhận lệnh và phản hồi trạng thái.
+Không cần đưa MQTT, Redis, MongoDB thành actor vì đó là thành phần bên trong hệ thống.
+Đặc tả UC08
+Thuộc tính
+	Nội dung
+	Mã UC
+	UC08
+	Tên UC
+	Điều khiển thiết bị thủ công
+	Actor chính
+	Thành viên gia đình hoặc Admin
+	Actor phụ
+	Actuator Node
+	Mục tiêu
+	Bật/tắt hoặc thay đổi trạng thái thiết bị từ giao diện
+	Tiền điều kiện
+	Người dùng đã đăng nhập; thiết bị đã được ghép nối
+	Kích hoạt
+	Người dùng nhấn điều khiển một thiết bị
+	Hậu điều kiện
+	Trạng thái thực tế được cập nhật trên giao diện và lưu lịch sử
+	Scenario chính: Bật đèn phòng khách
+                  1. Người dùng mở phòng khách trên Digital Twin.
+                  2. Hệ thống hiển thị đèn đang ở trạng thái OFF.
+                  3. Người dùng nhấn nút bật đèn.
+                  4. Frontend gửi yêu cầu điều khiển kèm JWT.
+                  5. Backend kiểm tra quyền của người dùng.
+                  6. Backend kiểm tra thiết bị đang ONLINE.
+                  7. Backend publish lệnh ON lên MQTT.
+                  8. Actuator Node nhận lệnh và bật relay.
+                  9. Actuator Node gửi lại reported state ON.
+                  10. Backend cập nhật trạng thái vào Redis.
+                  11. Backend ghi sự kiện điều khiển vào MongoDB.
+                  12. Backend gửi WebSocket event cho giao diện.
+                  13. Digital Twin hiển thị đèn ở trạng thái ON.
+                  14. Use case kết thúc thành công.
+Luồng thay thế và ngoại lệ
+                  * A1 – JWT hết hạn: Hệ thống yêu cầu người dùng đăng nhập lại.
+                  * A2 – Không có quyền: Hệ thống từ chối lệnh và thông báo không đủ quyền.
+                  * A3 – Thiết bị Offline: Hệ thống không gửi lệnh và thông báo thiết bị mất kết nối.
+                  * A4 – Không nhận được reported state: Giao diện hiển thị Đang chờ rồi chuyển sang Thất bại khi hết timeout.
+                  * A5 – Thiết bị báo lỗi: Hệ thống giữ trạng thái cũ và ghi lỗi vào lịch sử.
