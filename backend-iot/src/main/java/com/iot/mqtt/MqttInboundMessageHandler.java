@@ -63,7 +63,15 @@ public class MqttInboundMessageHandler {
                 String deviceId = status.path("deviceId").asText(topicParts.length >= 5 ? topicParts[3] : "");
                 String homeId = topicParts.length >= 5 ? topicParts[1] : null;
                 if (!deviceId.isBlank() && status.has("online")) {
-                    deviceStateService.updateNodeStatus(deviceId, homeId, status.path("online").asBoolean());
+                    boolean online = status.path("online").asBoolean();
+                    // A retained "online" message only describes the node's last
+                    // connection. It can outlive the ESP32 and must not refresh its
+                    // heartbeat when the backend subscribes or reconnects.
+                    if (event.retained() && online) {
+                        log.debug("Ignoring stale retained online status for {}", deviceId);
+                        return;
+                    }
+                    deviceStateService.updateNodeStatus(deviceId, homeId, online);
                 }
             } else if (event.topic().endsWith("/alert/fire")) {
                 FireAlert alert = objectMapper.readValue(event.payload(), FireAlert.class);

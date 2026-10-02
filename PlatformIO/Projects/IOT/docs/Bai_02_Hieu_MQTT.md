@@ -56,6 +56,6 @@ Hai giao thức giải quyết hai chặng khác nhau trong hệ thống; chúng
 
 ## Bài thực hành hiện tại
 
-Trước tiên chỉ cần hiểu luồng ở trên, chưa cần sửa code. Để ESP32 tham gia vào luồng thật, file `include/secrets.h` cần có Wi-Fi 2.4 GHz và đúng thông tin đăng nhập MQTT. Firmware hiện tự tìm máy broker trong cùng mạng LAN /24 bằng cổng TCP 1883; không cần nhập IPv4 của máy tính. `localhost` trên ESP32 vẫn có nghĩa là chính ESP32.
+Trước tiên chỉ cần hiểu luồng ở trên. Để ESP32 tham gia vào luồng thật, file bí mật của profile đã chọn cần có Wi-Fi 2.4 GHz và đúng thông tin đăng nhập MQTT. Profile `esp32-s3-local` dùng `include/secrets.local.h` và tìm broker trên LAN /24; profile mặc định dùng `include/secrets.h` với địa chỉ broker VPS. `localhost` trên ESP32 vẫn có nghĩa là chính ESP32.
 
 Sau khi cấu hình xong, mở Serial Monitor ở 115200 baud và kiểm tra theo thứ tự: dữ liệu DHT11 đọc được, Wi-Fi kết nối, MQTT kết nối, backend nhận telemetry, cuối cùng thử gửi lệnh từ dashboard. Nếu một bước chưa qua, xử lý bước đó trước khi đi tiếp.

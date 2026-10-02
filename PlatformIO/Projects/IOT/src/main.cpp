@@ -6,7 +6,13 @@
 #include "HardwareConfig.h"
 #include "Dht11Module.h"
 
-#if __has_include("secrets.h")
+#if defined(IOT_USE_LOCAL_SECRETS)
+#if __has_include("secrets.local.h")
+#include "secrets.local.h"
+#else
+#error "Copy include/secrets.local.h.example to include/secrets.local.h before building the local profile"
+#endif
+#elif __has_include("secrets.h")
 #include "secrets.h"
 #else
 #define WIFI_SSID ""
@@ -18,6 +24,10 @@
 #define IOT_HOME_ID "home-01"
 #define IOT_ROOM_ID "room-01"
 #define IOT_SENSOR_ID "dht11-01"
+#endif
+
+#ifndef MQTT_HOST
+#define MQTT_HOST ""
 #endif
 
 // Wiring: DHT11 DATA -> GPIO 4; buzzer signal -> GPIO 13; built-in RGB -> GPIO 48.
@@ -207,6 +217,7 @@ void setAlarm(bool active) {
 }
 
 bool discoverBroker(unsigned long now) {
+    if (!isPlaceholder(MQTT_HOST)) return true;
     if (brokerIp != IPAddress()) return true;
     if (now < nextScanCycleAt) return false;
 
@@ -257,9 +268,14 @@ void maintainConnections(unsigned long now) {
         if (!discoverBroker(now)) return;
         if (now - lastMqttAttemptAt < 3000) return;
         lastMqttAttemptAt = now;
-        mqtt.setServer(brokerIp, MQTT_PORT);
-        Serial.printf("Connecting to MQTT broker %s:%u...\n",
-                      brokerIp.toString().c_str(), MQTT_PORT);
+        if (!isPlaceholder(MQTT_HOST)) {
+            mqtt.setServer(MQTT_HOST, MQTT_PORT);
+            Serial.printf("Connecting to MQTT broker %s:%u...\n", MQTT_HOST, MQTT_PORT);
+        } else {
+            mqtt.setServer(brokerIp, MQTT_PORT);
+            Serial.printf("Connecting to MQTT broker %s:%u...\n",
+                          brokerIp.toString().c_str(), MQTT_PORT);
+        }
         const String clientId = String(DEVICE_ID) + "-" + String((uint32_t)ESP.getEfuseMac(), HEX);
         const String status = nodeStatusTopic();
         StaticJsonDocument<128> will;
@@ -280,7 +296,9 @@ void maintainConnections(unsigned long now) {
             mqttJustConnected = true;
         } else {
             Serial.printf("MQTT connection failed, state=%d\n", mqtt.state());
-            brokerIp = IPAddress(); // Rediscover if the host changed its IP.
+            if (isPlaceholder(MQTT_HOST)) {
+                brokerIp = IPAddress(); // Rediscover if the host changed its IP.
+            }
         }
     }
     mqtt.loop();
