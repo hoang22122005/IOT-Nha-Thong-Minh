@@ -6,7 +6,13 @@
 #include "HardwareConfig.h"
 #include "Dht11Module.h"
 
-#if __has_include("secrets.h")
+#if defined(IOT_USE_LOCAL_SECRETS)
+#if __has_include("secrets.local.h")
+#include "secrets.local.h"
+#else
+#error "Copy include/secrets.local.h.example to include/secrets.local.h before building the local profile"
+#endif
+#elif __has_include("secrets.h")
 #include "secrets.h"
 #else
 #define WIFI_SSID ""

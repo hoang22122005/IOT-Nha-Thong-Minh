@@ -43,8 +43,9 @@ docker exec -it iot-mqtt-broker mosquitto_pub -h localhost -t home/demo/room1/te
 The first terminal should display the topic and message. This verifies the
 broker before connecting the ESP32 or backend.
 
-The ESP32 firmware probes port 1883 on its current /24 Wi-Fi LAN and uses MQTT
-authentication to connect. It no longer stores the computer's changing LAN IP.
+The `esp32-s3-local` firmware profile probes port 1883 on its current /24 Wi-Fi
+LAN and uses MQTT authentication to connect. The default firmware profile uses
+the broker configured in its ignored `include/secrets.h` file.
 Keep the computer and ESP32 on the same trusted Private LAN; the Windows firewall
 rule for TCP 1883 is limited to Private + LocalSubnet. Do not expose port 1883
 to the public internet. The broker must be running before the ESP32 can find it.

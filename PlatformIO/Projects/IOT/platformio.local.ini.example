@@ -1,0 +1,4 @@
+[platformio]
+# Copy to platformio.local.ini only if your project path contains non-ASCII
+# characters on Windows. Choose a short ASCII-only path on your own computer.
+workspace_dir = C:/pio-build/IOT

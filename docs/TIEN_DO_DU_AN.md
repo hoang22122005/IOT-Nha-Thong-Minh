@@ -46,7 +46,7 @@ Redis đang giữ trạng thái mới nhất, không làm kho lịch sử. Backe
 | --- | --- |
 | Node ESP32 thứ hai | Profile firmware riêng đã build thành công, nhưng chưa có board thứ hai để upload và xác nhận kết nối MQTT/dashboard. |
 | Phát hiện khói/cháy | Chưa có cảm biến khói/khí. DHT11 chỉ đo nhiệt độ và độ ẩm; ngưỡng 32°C là minh họa, không phải đầu báo cháy. |
-| Camera, WebRTC, microphone ảo và trợ lý giọng nói AI | Chưa triển khai. Đây là các giai đoạn mở rộng sau khi luồng thiết bị MQTT thật hoạt động ổn định. |
+| Camera, WebRTC, microphone và AI Vision | Đã hoàn thiện thiết kế kiến trúc theo mô hình **Edge - Cloud Hybrid** trong `docs/KIEN_TRUC_MODULE.md`. AI và xử lý video/audio chạy tại Edge (máy cục bộ / Raspberry Pi), chỉ bắn bản tin sự kiện JSON qua MQTT lên VPS Cloud. Sẽ tiến hành code sau khi luồng thiết bị MQTT cơ bản ổn định. |
 | Tài khoản và bảo vệ API/WebSocket | Bảng `users` đã có, nhưng chưa có repository/service, API đăng ký/đăng nhập, băm mật khẩu, JWT, phân quyền, hay bảo vệ WebSocket. Hiện `setAllowedOrigins("*")`; chỉ nên cho người dùng thật truy cập sau khi hoàn tất phần này. |
 | Redis Pub/Sub | Chưa triển khai. Luồng hiện tại ghi Redis rồi backend đang chạy gửi WebSocket trực tiếp. Chỉ cần Pub/Sub khi nhiều backend cùng phục vụ dashboard hoặc cần tách dịch vụ nhận MQTT với dịch vụ WebSocket. |
 

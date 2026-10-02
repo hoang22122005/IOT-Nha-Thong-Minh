@@ -108,7 +108,7 @@ export function useIoTWebSocket() {
     }
   }, []);
 
-  const connect = useCallback(() => {
+  const connect = useCallback(function connectWebSocket() {
     // Protocol and host detection
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     const wsUrl = `${protocol}//${window.location.host}/ws/iot/dashboard`;
@@ -118,6 +118,7 @@ export function useIoTWebSocket() {
       wsRef.current = ws;
 
       ws.onopen = () => {
+        if (wsRef.current !== ws) return;
         console.log('[WebSocket] Connected to IoT backend:', wsUrl);
         setIsConnected(true);
 
@@ -131,6 +132,7 @@ export function useIoTWebSocket() {
       };
 
       ws.onmessage = (event) => {
+        if (wsRef.current !== ws) return;
         try {
           const data = JSON.parse(event.data);
 
@@ -161,18 +163,22 @@ export function useIoTWebSocket() {
               setSelectedSensorId(sensorId);
               const sensor = selectedState.sensors?.[sensorId];
               if (sensor?.measurements && Object.keys(sensor.measurements).length) {
-                const timestamp = Number(selectedState.lastSeenAt) || Date.now();
-                setTelemetryHistory((prev) => [
-                  ...prev,
-                  {
-                    timestamp,
-                    time: new Date(timestamp).toLocaleString('vi-VN'),
-                    temperature: sensor.measurements.temperature ?? null,
-                    humidity: sensor.measurements.humidity ?? null,
-                    measurements: sensor.measurements,
-                    units: sensor.units || {},
-                  },
-                ].slice(-200));
+                const timestamp = Number(sensor.lastSeenAt);
+                if (Number.isFinite(timestamp)
+                    && timestamp >= Date.now() - HISTORY_RANGES[historyRangeRef.current]) {
+                  setTelemetryHistory((prev) => {
+                    const points = new Map(prev.map((point) => [point.timestamp, point]));
+                    points.set(timestamp, {
+                      timestamp,
+                      time: new Date(timestamp).toLocaleString('vi-VN'),
+                      temperature: sensor.measurements.temperature ?? null,
+                      humidity: sensor.measurements.humidity ?? null,
+                      measurements: sensor.measurements,
+                      units: sensor.units || {},
+                    });
+                    return [...points.values()].sort((a, b) => a.timestamp - b.timestamp).slice(-1000);
+                  });
+                }
               }
               loadSensorHistory(sensorId, selectedState.deviceId);
             }
@@ -193,7 +199,9 @@ export function useIoTWebSocket() {
           } else if (data.type === 'TELEMETRY') {
             const deviceId = data.deviceId || DEFAULT_DEVICE_ID;
             const previous = deviceStatesRef.current[deviceId] || { ...DEFAULT_DEVICE_STATE, deviceId };
-            const reported = normalizeDeviceState({ ...data, online: true }, previous);
+            // Honor the backend's node status. Telemetry updates measurements; it
+            // must not independently override an explicit offline status.
+            const reported = normalizeDeviceState(data, previous);
             deviceStatesRef.current = { ...deviceStatesRef.current, [deviceId]: reported };
             setDeviceStates(deviceStatesRef.current);
             if (deviceId === selectedDeviceIdRef.current) setDeviceState(reported);
@@ -288,10 +296,11 @@ export function useIoTWebSocket() {
       };
 
       ws.onclose = () => {
+        if (wsRef.current !== ws) return;
         console.warn('[WebSocket] Connection closed. Reconnecting in 3s...');
         setIsConnected(false);
         clearInterval(pingIntervalRef.current);
-        reconnectTimeoutRef.current = setTimeout(connect, 3000);
+        reconnectTimeoutRef.current = setTimeout(connectWebSocket, 3000);
       };
 
       ws.onerror = (err) => {
@@ -300,7 +309,7 @@ export function useIoTWebSocket() {
       };
     } catch (e) {
       console.error('[WebSocket] Initialization error:', e);
-      reconnectTimeoutRef.current = setTimeout(connect, 3000);
+      reconnectTimeoutRef.current = setTimeout(connectWebSocket, 3000);
     }
   }, [loadSensorHistory]);
 
@@ -339,7 +348,9 @@ export function useIoTWebSocket() {
   useEffect(() => {
     connect();
     return () => {
-      if (wsRef.current) wsRef.current.close();
+      const ws = wsRef.current;
+      wsRef.current = null;
+      if (ws) ws.close();
       if (reconnectTimeoutRef.current) clearTimeout(reconnectTimeoutRef.current);
       if (pingIntervalRef.current) clearInterval(pingIntervalRef.current);
     };

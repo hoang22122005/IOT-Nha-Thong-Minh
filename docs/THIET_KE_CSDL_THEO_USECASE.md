@@ -4,12 +4,12 @@ Tài liệu này lấy danh sách Use Case đã chốt trong `docs/IoT.txt`, đ�
 
 ## 1. Nguyên tắc phân vai dữ liệu
 
-| Thành phần | Làm gì | Dữ liệu giữ ở đó | Không dùng cho |
-|---|---|---|---|
-| PostgreSQL | Nguồn dữ liệu chuẩn cho tài khoản, quyền và cấu trúc nhà | User, membership, home, room, đăng ký node/module | Telemetry tốc độ cao |
-| MongoDB | Lưu hồ sơ cấu hình linh hoạt và lịch sử lâu dài | Sensor readings, device events, alerts, automation rules, scenes, audit/voice/media metadata | Trạng thái heartbeat từng vài giây |
-| Redis | Đọc nhanh trạng thái hiện tại, TTL, khóa cooldown và phát sự kiện giữa backend | Current state, heartbeat, sensor latest, active alerts, rule cooldown | Lịch sử lâu dài hoặc mật khẩu |
-| Mosquitto MQTT | Nhận và chuyển tiếp tin publish tới subscribers theo topic | Retained state cuối cùng theo topic, persistence nội bộ của broker | Thay thế Redis, MongoDB hoặc PostgreSQL |
+| Thành phần   | Làm gì                                                                                   | Dữ liệu giữ ở đó                                                                       | Không dùng cho                          |
+| -------------- | ------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------- | ----------------------------------------- |
+| PostgreSQL     | Nguồn dữ liệu chuẩn cho tài khoản, quyền và cấu trúc nhà                        | User, membership, home, room, đăng ký node/module                                         | Telemetry tốc độ cao                   |
+| MongoDB        | Lưu hồ sơ cấu hình linh hoạt và lịch sử lâu dài                                 | Sensor readings, device events, alerts, automation rules, scenes, audit/voice/media metadata | Trạng thái heartbeat từng vài giây   |
+| Redis          | Đọc nhanh trạng thái hiện tại, TTL, khóa cooldown và phát sự kiện giữa backend | Current state, heartbeat, sensor latest, active alerts, rule cooldown                        | Lịch sử lâu dài hoặc mật khẩu      |
+| Mosquitto MQTT | Nhận và chuyển tiếp tin publish tới subscribers theo topic                            | Retained state cuối cùng theo topic, persistence nội bộ của broker                      | Thay thế Redis, MongoDB hoặc PostgreSQL |
 
 Một dữ liệu chỉ có **một nơi làm nguồn chuẩn**. Ví dụ: thông tin email/tài khoản chuẩn ở PostgreSQL; lịch sử phép đo chuẩn ở MongoDB; trạng thái online hiện tại được tính theo heartbeat TTL ở Redis.
 
@@ -217,16 +217,16 @@ Index: unique `{ homeId: 1, name: 1 }`. Scene configuration nằm trong MongoDB;
 
 ## 4. Redis — trạng thái nóng và TTL
 
-| Key | Kiểu / nội dung | TTL | Mục đích |
-|---|---|---:|---|
-| `devices:known` | Set các `deviceId` | Không TTL | Khôi phục danh sách node từng đăng ký |
-| `device:{deviceId}:state` | JSON trạng thái cuối | Không TTL | Hiện node offline vẫn có thể xem mẫu trạng thái cuối |
-| `node:{deviceId}:heartbeat` | timestamp cuối | 15 giây | Online khi TTL còn; firmware gửi heartbeat mỗi 5 giây |
-| `sensor:{deviceId}:{sensorId}:current` | JSON phép đo cuối | 10 phút | Đọc nhanh giá trị hiện tại, tự hết hạn nếu sensor im lặng |
-| `alert:{alertId}:current` | JSON cảnh báo active | Không TTL đến khi resolve | Phục vụ trạng thái cảnh báo đang mở |
-| `alerts:active:{homeId}` | Set alert ID đang mở | Đồng bộ với alert | Tải nhanh danh sách cảnh báo active theo nhà |
-| `automation:cooldown:{ruleId}:{targetId}` | khóa/last-run token | cooldown của luật | Chặn lặp, hỗ trợ atomic `SET NX` khi có nhiều backend |
-| `realtime:home:{homeId}` | Redis Pub/Sub channel | Không lưu | Tùy chọn để nhiều backend phát WebSocket event tới client của mình |
+| Key                                         | Kiểu / nội dung       |                          TTL | Mục đích                                                                 |
+| ------------------------------------------- | ----------------------- | ---------------------------: | --------------------------------------------------------------------------- |
+| `devices:known`                           | Set các`deviceId`    |                   Không TTL | Khôi phục danh sách node từng đăng ký                                |
+| `device:{deviceId}:state`                 | JSON trạng thái cuối |                   Không TTL | Hiện node offline vẫn có thể xem mẫu trạng thái cuối                |
+| `node:{deviceId}:heartbeat`               | timestamp cuối         |                     15 giây | Online khi TTL còn; firmware gửi heartbeat mỗi 5 giây                   |
+| `sensor:{deviceId}:{sensorId}:current`    | JSON phép đo cuối    |                     10 phút | Đọc nhanh giá trị hiện tại, tự hết hạn nếu sensor im lặng        |
+| `alert:{alertId}:current`                 | JSON cảnh báo active  | Không TTL đến khi resolve | Phục vụ trạng thái cảnh báo đang mở                                 |
+| `alerts:active:{homeId}`                  | Set alert ID đang mở  |        Đồng bộ với alert | Tải nhanh danh sách cảnh báo active theo nhà                           |
+| `automation:cooldown:{ruleId}:{targetId}` | khóa/last-run token    |          cooldown của luật | Chặn lặp, hỗ trợ atomic`SET NX` khi có nhiều backend                |
+| `realtime:home:{homeId}`                  | Redis Pub/Sub channel   |                  Không lưu | Tùy chọn để nhiều backend phát WebSocket event tới client của mình |
 
 Đang có trong code: `devices:known`, `device:{id}:state`, `node:{id}:heartbeat`, `sensor:{deviceId}:{sensorId}:current`. Trạng thái cooldown và trạng thái active alert còn cần chuyển/hoàn thiện. Redis Pub/Sub chưa nằm trong luồng hiện tại; một backend đang phát WebSocket trực tiếp.
 
@@ -234,19 +234,19 @@ Heartbeat phải có TTL. Trạng thái device không nên TTL ngắn vì dashbo
 
 ## 5. Ghép cấu trúc dữ liệu với Use Case
 
-| Luồng Use Case | PostgreSQL | MongoDB | Redis / MQTT |
-|---|---|---|---|
-| Đăng nhập, phân quyền | `users`, `home_memberships`, `user_sessions` | Có thể ghi audit đăng nhập | JWT kiểm tra tại backend; không đưa mật khẩu vào Redis/MQTT |
-| Nhà, phòng, ghép nối node/module | `homes`, `rooms`, `devices`, `device_components` | — | `devices:known`; status online từ heartbeat |
-| Telemetry, biểu đồ | Metadata component và đơn vị chuẩn | `sensor_readings` | sensor current; MQTT telemetry |
-| Realtime dashboard | — | — | Redis state; backend WebSocket trực tiếp (Redis Pub/Sub khi scale ngang) |
-| Điều khiển tay/giọng nói | Xác minh người và quyền trên home/device | `device_events` lưu yêu cầu và kết quả | MQTT set/state; Redis latest reported state |
-| Luật tự động | Quyền sở hữu home và device được tham chiếu | `automation_rules` | Cooldown/idempotency; publish lệnh MQTT |
-| Scene | Quyền home/user | `scenes`, event kích hoạt | Scene hiện hành; các lệnh thành viên đi qua MQTT |
-| Heartbeat/offline | Hồ sơ node vẫn nằm ở `devices` | Có thể lưu chuyển trạng thái vào event | MQTT heartbeat/LWT; Redis TTL |
-| Cảnh báo/acknowledge | User xác nhận phải tồn tại | `alerts`, `device_events` | Active alert cache; MQTT để truyền cảnh báo tới backend |
-| Camera/audio | Metadata user/quyền camera | Event và đường dẫn snapshot/object; không lưu luồng lớn | WebRTC truyền luồng trực tiếp; Redis có thể lưu trạng thái phiên |
-| Lịch sử/audit | User/role tham chiếu | `sensor_readings`, `device_events`, `alerts`, voice/media events | Không dùng Redis làm lịch sử |
+| Luồng Use Case                      | PostgreSQL                                               | MongoDB                                                                | Redis / MQTT                                                               |
+| ------------------------------------ | -------------------------------------------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| Đăng nhập, phân quyền           | `users`, `home_memberships`, `user_sessions`       | Có thể ghi audit đăng nhập                                        | JWT kiểm tra tại backend; không đưa mật khẩu vào Redis/MQTT        |
+| Nhà, phòng, ghép nối node/module | `homes`, `rooms`, `devices`, `device_components` | —                                                                     | `devices:known`; status online từ heartbeat                             |
+| Telemetry, biểu đồ                | Metadata component và đơn vị chuẩn                  | `sensor_readings`                                                    | sensor current; MQTT telemetry                                             |
+| Realtime dashboard                   | —                                                       | —                                                                     | Redis state; backend WebSocket trực tiếp (Redis Pub/Sub khi scale ngang) |
+| Điều khiển tay/giọng nói        | Xác minh người và quyền trên home/device           | `device_events` lưu yêu cầu và kết quả                         | MQTT set/state; Redis latest reported state                                |
+| Luật tự động                     | Quyền sở hữu home và device được tham chiếu      | `automation_rules`                                                   | Cooldown/idempotency; publish lệnh MQTT                                   |
+| Scene                                | Quyền home/user                                         | `scenes`, event kích hoạt                                          | Scene hiện hành; các lệnh thành viên đi qua MQTT                    |
+| Heartbeat/offline                    | Hồ sơ node vẫn nằm ở`devices`                     | Có thể lưu chuyển trạng thái vào event                          | MQTT heartbeat/LWT; Redis TTL                                              |
+| Cảnh báo/acknowledge               | User xác nhận phải tồn tại                          | `alerts`, `device_events`                                          | Active alert cache; MQTT để truyền cảnh báo tới backend              |
+| Camera/audio                         | Metadata user/quyền camera                              | Event và đường dẫn snapshot/object; không lưu luồng lớn       | WebRTC truyền luồng trực tiếp; Redis có thể lưu trạng thái phiên |
+| Lịch sử/audit                      | User/role tham chiếu                                    | `sensor_readings`, `device_events`, `alerts`, voice/media events | Không dùng Redis làm lịch sử                                          |
 
 ## 6. Kiến trúc hiện có và khoảng cách với Use Case
 

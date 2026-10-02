@@ -6,10 +6,8 @@ import {
   PointElement,
   LinearScale,
   Title,
-  CategoryScale,
   Tooltip,
   Legend,
-  Filler,
 } from 'chart.js';
 import { LineChart as ChartIcon } from 'lucide-react';
 
@@ -19,11 +17,28 @@ Chart.register(
   PointElement,
   LinearScale,
   Title,
-  CategoryScale,
   Tooltip,
   Legend,
-  Filler
 );
+
+const GAP_MS = 20_000;
+const MIN_VISIBLE_MS = 120_000;
+
+function toTimeSeries(rows, readValue) {
+  const points = [];
+  let previousTime = null;
+  for (const row of rows) {
+    const x = Number(row.timestamp);
+    const value = readValue(row);
+    if (!Number.isFinite(x) || value == null || !Number.isFinite(Number(value))) continue;
+    if (previousTime != null && x - previousTime > GAP_MS) {
+      points.push({ x: previousTime + 1, y: null });
+    }
+    points.push({ x, y: Number(value) });
+    previousTime = x;
+  }
+  return points;
+}
 
 const RANGES = [
   { id: '1h', label: '1 giờ' },
@@ -36,6 +51,7 @@ export default function TelemetryChart({ telemetryHistory, historyRange = '24h',
   sensors = {}, selectedSensorId, onSensorChange }) {
   const canvasRef = useRef(null);
   const chartInstanceRef = useRef(null);
+  const previousPointCountRef = useRef(0);
   const [selectedMetric, setSelectedMetric] = useState('climate');
   const extraMetrics = [...new Set(telemetryHistory.flatMap((row) => Object.keys(row.measurements || {})))]
     .filter((name) => !['temperature', 'humidity'].includes(name));
@@ -52,61 +68,54 @@ export default function TelemetryChart({ telemetryHistory, historyRange = '24h',
     const ctx = canvasRef.current.getContext('2d');
     if (!ctx) return;
 
-    // Destroy previous chart
-    if (chartInstanceRef.current) {
-      chartInstanceRef.current.destroy();
-    }
-
-    const labels = telemetryHistory.map((item) => item.time);
-    const tempData = telemetryHistory.map((item) => item.temperature);
-    const humData = telemetryHistory.map((item) => item.humidity);
-
     chartInstanceRef.current = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: labels.length ? labels : ['Chưa có dữ liệu'],
         datasets: isClimate ? [
           {
             label: 'Nhiệt độ (°C)',
-            data: tempData.length ? tempData : [null],
+            data: [],
             borderColor: '#f97316',
             backgroundColor: 'rgba(249, 115, 22, 0.1)',
             borderWidth: 2.5,
             pointBackgroundColor: '#f97316',
-            pointRadius: 3,
-            pointHoverRadius: 6,
-            tension: 0.35,
-            fill: true,
+            pointRadius: 0,
+            pointHoverRadius: 5,
+            tension: 0.25,
+            fill: false,
             yAxisID: 'yTemp',
           },
           {
             label: 'Độ ẩm (%)',
-            data: humData.length ? humData : [null],
+            data: [],
             borderColor: '#06b6d4',
             backgroundColor: 'rgba(6, 182, 212, 0.08)',
             borderWidth: 2.5,
             pointBackgroundColor: '#06b6d4',
-            pointRadius: 3,
-            pointHoverRadius: 6,
-            tension: 0.35,
-            fill: true,
+            pointRadius: 0,
+            pointHoverRadius: 5,
+            tension: 0.25,
+            fill: false,
             yAxisID: 'yHum',
           },
         ] : [{
           label: `${chartMetric.replaceAll('_', ' ')} ${metricUnit ? `(${metricUnit})` : ''}`,
-          data: telemetryHistory.map((row) => row.measurements?.[chartMetric] ?? null),
+          data: [],
           borderColor: '#38bdf8',
           backgroundColor: 'rgba(56, 189, 248, 0.1)',
           borderWidth: 2.5,
-          pointRadius: 2,
-          tension: 0.35,
-          fill: true,
+          pointRadius: 0,
+          pointHoverRadius: 5,
+          tension: 0.25,
+          fill: false,
           yAxisID: 'yExtra',
         }],
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        animation: { duration: 280, easing: 'easeOutCubic' },
+        parsing: false,
         interaction: {
           mode: 'index',
           intersect: false,
@@ -137,10 +146,16 @@ export default function TelemetryChart({ telemetryHistory, historyRange = '24h',
             usePointStyle: true,
             titleFont: { family: "'JetBrains Mono', monospace" },
             bodyFont: { family: "'Outfit', sans-serif" },
+            callbacks: {
+              title: (items) => items.length
+                ? new Date(items[0].parsed.x).toLocaleString('vi-VN')
+                : '',
+            },
           },
         },
         scales: {
           x: {
+            type: 'linear',
             grid: {
               color: 'rgba(255, 255, 255, 0.04)',
             },
@@ -152,6 +167,12 @@ export default function TelemetryChart({ telemetryHistory, historyRange = '24h',
               },
               maxRotation: 0,
               maxTicksLimit: 8,
+              callback(value) {
+                const options = this.max - this.min > 86_400_000
+                  ? { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }
+                  : { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+                return new Date(value).toLocaleString('vi-VN', options);
+              },
             },
           },
           yTemp: {
@@ -200,12 +221,41 @@ export default function TelemetryChart({ telemetryHistory, historyRange = '24h',
       },
     });
 
+    const chart = chartInstanceRef.current;
+    previousPointCountRef.current = 0;
     return () => {
-      if (chartInstanceRef.current) {
-        chartInstanceRef.current.destroy();
-      }
+      chart.destroy();
+      if (chartInstanceRef.current === chart) chartInstanceRef.current = null;
     };
-  }, [telemetryHistory, chartMetric, metricUnit, isClimate]);
+  }, [chartMetric, metricUnit, isClimate]);
+
+  useEffect(() => {
+    const chart = chartInstanceRef.current;
+    if (!chart) return;
+    if (isClimate) {
+      chart.data.datasets[0].data = toTimeSeries(telemetryHistory, (item) => item.temperature);
+      chart.data.datasets[1].data = toTimeSeries(telemetryHistory, (item) => item.humidity);
+    } else {
+      chart.data.datasets[0].data = toTimeSeries(
+        telemetryHistory, (row) => row.measurements?.[chartMetric]
+      );
+    }
+    const times = telemetryHistory.map((row) => Number(row.timestamp)).filter(Number.isFinite);
+    if (times.length) {
+      const first = Math.min(...times);
+      const last = Math.max(...times);
+      chart.options.scales.x.min = last - Math.max(last - first, MIN_VISIBLE_MS);
+      chart.options.scales.x.max = last + 10_000;
+    } else {
+      delete chart.options.scales.x.min;
+      delete chart.options.scales.x.max;
+    }
+    // A live point moves smoothly. A history load or range switch is drawn
+    // immediately so hundreds of old points do not animate across the canvas.
+    const countChange = telemetryHistory.length - previousPointCountRef.current;
+    chart.update(countChange < 0 || countChange > 2 ? 'none' : undefined);
+    previousPointCountRef.current = telemetryHistory.length;
+  }, [telemetryHistory, chartMetric, isClimate]);
 
   return (
     <div className="glass-panel" style={{ padding: '24px' }}>
