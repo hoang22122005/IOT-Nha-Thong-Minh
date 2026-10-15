@@ -1,0 +1,442 @@
+<!DOCTYPE html><html lang="vi"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"on-surface":"#151e18","secondary-fixed":"#d7e6da","surface-container-highest":"#dbe5dc","inverse-on-surface":"#e9f3ea","error":"#ba1a1a","warning-text":"#80530E","accent-soft":"#E7F0E9","error-container":"#ffdad6","on-secondary-fixed-variant":"#3d4a41","on-primary":"#ffffff","tertiary-container":"#994121","outline-variant":"#bfc9c1","on-secondary":"#ffffff","surface-container-high":"#e1ebe1","on-primary-fixed":"#002112","on-error-container":"#93000a","bg-surface":"#FFFFFF","on-primary-container":"#a1e3bd","tertiary-fixed-dim":"#ffb59c","surface-tint":"#2a6a4b","secondary-fixed-dim":"#bccabf","on-surface-variant":"#404943","tertiary-fixed":"#ffdbcf","surface-container":"#e6f1e7","secondary-container":"#d7e6da","on-tertiary":"#ffffff","on-secondary-container":"#5a685e","surface-bright":"#f2fcf2","outline":"#707972","surface-container-low":"#ecf6ed","primary":"#054f33","surface":"#f2fcf2","background":"#f2fcf2","inverse-surface":"#29332c","text-secondary":"#566159","inverse-primary":"#93d4af","warning-bg":"#FFF5DF","surface-container-lowest":"#ffffff","surface-dim":"#d3ddd3","on-error":"#ffffff","on-tertiary-fixed-variant":"#7d2d0e","surface-variant":"#dbe5dc","border-control":"#7B897F","tertiary":"#7a2b0b","bg-app":"#F6F7F4","primary-fixed-dim":"#93d4af","danger-text":"#B42318","border-default":"#DDE3DC","primary-fixed":"#aff1ca","on-secondary-fixed":"#121e17","chart-humidity":"#2B6A91","on-tertiary-fixed":"#390c00","danger-bg":"#FEF0ED","on-primary-fixed-variant":"#0a5135","bg-subtle":"#EEF1EC","chart-temperature":"#A64B2A","accent-hover":"#1E5239","secondary":"#546258","text-primary":"#202923","on-tertiary-container":"#ffc9b7","on-background":"#151e18","primary-container":"#276749"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-2xl":"2rem","gutter-desktop":"1.5rem","space-md":"0.75rem","space-xs":"0.25rem","margin-desktop":"2rem","space-lg":"1rem","space-sm":"0.5rem","margin":"1rem","gutter":"1rem","margin-tablet":"1.5rem","space-xl":"1.5rem"},"fontFamily":{"headline-md":["Inter"],"body-md":["Inter"],"caption":["Inter"],"headline-lg-mobile":["Inter"],"label-sm":["Inter"],"headline-sm":["Inter"],"title-md":["Inter"],"body-lg":["Inter"],"display-metric":["Inter"],"label-md":["Inter"],"body-sm":["Inter"],"headline-lg":["Inter"]},"fontSize":{"headline-md":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-md":["15px",{"lineHeight":"22px","letterSpacing":"0","fontWeight":"400"}],"caption":["13px",{"lineHeight":"18px","letterSpacing":"0","fontWeight":"400"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-sm":["13px",{"lineHeight":"18px","letterSpacing":"0.01em","fontWeight":"500"}],"headline-sm":["18px",{"lineHeight":"26px","letterSpacing":"0","fontWeight":"600"}],"title-md":["16px",{"lineHeight":"24px","letterSpacing":"0","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"24px","letterSpacing":"0","fontWeight":"400"}],"display-metric":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"600"}],"label-md":["15px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}],"body-sm":["14px",{"lineHeight":"20px","letterSpacing":"0","fontWeight":"400"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.015em","fontWeight":"600"}]}}}};</script></head><body class="bg-bg-app font-body-md text-text-primary min-h-screen"><aside class="fixed left-0 top-0 h-screen w-[224px] bg-bg-surface z-50 flex flex-col justify-between p-space-lg"><div class="flex flex-col"><div class="flex items-center gap-space-sm mb-space-xl pb-space-md"><img alt="Logo Nhà của tôi" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1U9cnT3DytXq5yQE9E5WGFqYbEEmcSfctJh3VKzhGKQRFvJjTi_IJFqucGCPhNinSnHp8s2AsotqvTDuzMbCueqiU3BrtwwRwdcWD7GV1lAipxR_qiN8NNBLd-1zL4NRqKnyb9kuKZMqH_uAU0eWJyR2Xd8B6TYWVaF8HemRg510INQdJS80Sr2W6FP176frYLZRL4Xn5IT4qyX0dmndR_7yPCccfa2KFzIfBzwNUsNZV7Iuw0hPgXM4FQ"><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-text-primary leading-tight">Nhà của tôi</span><span class="font-caption text-caption text-text-secondary leading-tight">Bảng điều khiển</span></div></div><nav class="flex flex-col gap-space-xs" data-active-classes="bg-accent-soft text-primary-container font-semibold rounded-lg"><a aria-current="page" class="flex items-center gap-space-md px-space-md py-space-sm transition-colors bg-accent-soft text-primary-container font-semibold rounded-lg" data-path="tong-quan" href="#"><span class="material-symbols-outlined text-[20px]">dashboard</span><span class="">Tổng quan</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg font-body-sm text-body-sm text-text-secondary hover:bg-bg-subtle hover:text-text-primary transition-colors" data-path="phong-va-thiet-bi" href="#"><span class="material-symbols-outlined text-[20px]">meeting_room</span><span class="">Phòng &amp; thiết bị</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg font-body-sm text-body-sm text-text-secondary hover:bg-bg-subtle hover:text-text-primary transition-colors" data-path="ngu-canh" href="#"><span class="material-symbols-outlined text-[20px]">auto_mode</span><span class="">Ngữ cảnh</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg font-body-sm text-body-sm text-text-secondary hover:bg-bg-subtle hover:text-text-primary transition-colors" data-path="tu-dong-hoa" href="#"><span class="material-symbols-outlined text-[20px]">bolt</span><span class="">Tự động hóa</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg font-body-sm text-body-sm text-text-secondary hover:bg-bg-subtle hover:text-text-primary transition-colors" data-path="lich-su" href="#"><span class="material-symbols-outlined text-[20px]">history</span><span class="">Lịch sử</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg font-body-sm text-body-sm text-text-secondary hover:bg-bg-subtle hover:text-text-primary transition-colors" data-path="canh-bao" href="#"><span class="material-symbols-outlined text-[20px]">warning</span><span class="">Cảnh báo</span></a></nav></div><div class="pt-space-md"><button class="w-full flex items-center gap-space-md px-space-md py-space-sm rounded-lg font-body-sm text-body-sm text-text-secondary hover:bg-bg-subtle hover:text-text-primary transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">info</span><span class="">Thông tin hệ thống</span></button></div></aside><div class="pl-[224px]"><header class="fixed top-0 left-[224px] right-0 h-16 bg-bg-surface z-40 px-space-2xl flex items-center justify-between"><div class="flex items-center gap-space-md"><span class="font-headline-sm text-headline-sm text-text-primary">Bảng điều khiển</span></div><div class="flex items-center gap-space-xl"><div class="flex items-center gap-space-xs font-label-sm text-label-sm text-primary-container bg-accent-soft px-space-md py-1 rounded-full"><span class="w-2 h-2 rounded-full bg-primary-container"></span><span class="">Đã kết nối máy chủ</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="w-full pt-16 bg-bg-app"><div class="max-w-[1280px] mx-auto p-space-2xl"><div class="flex flex-col w-full gap-space-xl">
+<!-- Top Bar Context (Secondary Meta Header) -->
+<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-space-sm pb-space-xs">
+<div>
+<div class="flex items-center gap-space-sm">
+<h1 class="font-headline-lg text-headline-lg text-text-primary tracking-tight">Tổng quan</h1>
+<span class="font-label-sm text-label-sm text-text-secondary bg-bg-subtle px-2 py-0.5 rounded-full font-mono">v1.4-telemetry</span>
+</div>
+
+</div>
+<div class="flex items-center gap-space-md self-start sm:self-auto">
+<div class="flex items-center gap-2 px-space-md py-1.5 bg-bg-surface rounded-full shadow-sm text-text-primary">
+<span class="relative flex h-2.5 w-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
+</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold">Đã kết nối máy chủ</span>
+<span class="font-caption text-caption text-text-secondary font-mono">MQTT: 1883</span>
+</div>
+</div>
+</div>
+<!-- Incident Alert Banner (Prominent Real-time Hardware Alert) -->
+<div class="w-full bg-danger-bg rounded-xl p-space-lg flex flex-col md:flex-row md:items-center justify-between gap-space-md transition-all" id="active-incident-banner">
+<div class="flex items-start gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-error-container flex items-center justify-center shrink-0 text-danger-text">
+<span class="material-symbols-outlined text-[24px]">thermostat</span>
+</div>
+<div class="flex flex-col"><div class="flex items-center gap-space-sm flex-wrap"><span class="font-headline-sm text-headline-sm text-danger-text">Nhiệt độ vượt ngưỡng · Phòng khách</span><span class="font-label-sm text-label-sm bg-danger-bg text-danger-text px-2 py-0.5 rounded-full font-semibold">Cảnh báo khẩn</span></div><p class="font-body-sm text-body-sm text-danger-text mt-1 flex items-center gap-2 flex-wrap"><span class="font-semibold tabular-nums">34,2 °C</span><span class="opacity-60">(Ngưỡng 32 °C)</span><span class="opacity-60">·</span><span class="font-mono bg-bg-surface px-1.5 py-0.5 rounded text-[12px] text-danger-text">esp32-room-01</span></p></div>
+</div>
+<div class="flex items-center gap-space-sm shrink-0 self-end md:self-center">
+<button class="h-10 px-4 rounded-lg bg-bg-surface text-danger-text font-label-md text-label-md hover:bg-bg-subtle transition-colors flex items-center gap-1.5" id="btn-ack" onclick="acknowledgeAlert()" type="button">
+<span class="material-symbols-outlined text-[18px]">done</span>
+<span class="">Đã xem cảnh báo</span>
+</button>
+<a class="h-10 px-4 rounded-lg bg-danger-text text-on-primary font-label-md text-label-md hover:opacity-95 transition-opacity flex items-center gap-1.5" href="#">
+<span class="">Xem thiết bị</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Telemetry Summary Cards (Level 1 Surface) -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md">
+<div class="bg-bg-surface rounded-xl p-space-lg flex items-center justify-between">
+<div>
+<p class="font-caption text-caption text-text-secondary uppercase tracking-wider font-semibold">Khu vực kiểm soát</p>
+<p class="font-display-metric text-display-metric text-text-primary mt-1 tabular-nums">2 <span class="font-title-md text-title-md font-normal text-text-secondary">phòng</span></p>
+</div>
+<div class="w-12 h-12 rounded-xl bg-bg-subtle flex items-center justify-center text-text-secondary">
+<span class="material-symbols-outlined text-[28px]">sensor_door</span>
+</div>
+</div>
+<div class="bg-bg-surface rounded-xl p-space-lg flex items-center justify-between">
+<div>
+<p class="font-caption text-caption text-text-secondary uppercase tracking-wider font-semibold">Vi điều khiển kết nối</p>
+<div class="flex items-baseline gap-1.5 mt-1">
+<span class="font-display-metric text-display-metric text-text-primary tabular-nums">1/2</span>
+<span class="font-title-md text-title-md text-text-secondary font-normal">node online</span>
+</div>
+</div>
+<div class="w-12 h-12 rounded-xl bg-accent-soft flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[28px]">router</span>
+</div>
+</div>
+<div class="bg-bg-surface rounded-xl p-space-lg flex items-center justify-between">
+<div>
+<p class="font-caption text-caption text-text-secondary uppercase tracking-wider font-semibold">Sự kiện kích hoạt</p>
+<div class="flex items-baseline gap-1.5 mt-1">
+<span class="font-display-metric text-display-metric text-danger-text tabular-nums">1</span>
+<span class="font-title-md text-title-md text-danger-text font-normal">cảnh báo đang diễn ra</span>
+</div>
+</div>
+<div class="w-12 h-12 rounded-xl bg-danger-bg flex items-center justify-center text-danger-text">
+<span class="material-symbols-outlined text-[28px]">warning_amber</span>
+</div>
+</div>
+</div>
+<!-- Primary Working Grid: Rooms & Quick Controls -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl">
+<!-- Left Column: Room Cards (7 Columns) -->
+<div class="lg:col-span-7 flex flex-col gap-space-lg">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<h2 class="font-headline-sm text-headline-sm text-text-primary">Các phòng</h2>
+<span class="font-caption text-caption bg-bg-subtle text-text-secondary px-2 py-0.5 rounded-full">2 điểm thu thập</span>
+</div>
+<span class="font-caption text-caption text-text-secondary">Chu kỳ đồng bộ: 5s</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<!-- Room 1: Phòng khách (Has Alert, Online) -->
+<div class="bg-bg-surface rounded-xl p-space-lg flex flex-col justify-between transition-colors bg-danger-bg/20">
+<div>
+<div class="flex items-start justify-between gap-space-sm mb-3">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary">Phòng khách</h3>
+<p class="font-caption text-caption text-text-secondary font-mono mt-0.5">room-01 · esp32-room-01</p>
+</div>
+<span class="font-label-sm text-label-sm bg-danger-bg text-danger-text px-2.5 py-0.5 rounded-full font-semibold flex items-center gap-1 shrink-0">
+<span class="w-1.5 h-1.5 rounded-full bg-danger-text"></span>
+                Có cảnh báo
+              </span>
+</div>
+<!-- Telemetry Values (Tabular Nums) -->
+<div class="grid grid-cols-2 gap-space-sm my-space-md py-space-sm px-space-md bg-bg-subtle/70 rounded-lg">
+<div>
+<span class="font-caption text-caption text-text-secondary block">Nhiệt độ</span>
+<span class="font-headline-md text-headline-md text-chart-temperature tabular-nums font-semibold">30,8 °C</span>
+</div>
+<div>
+<span class="font-caption text-caption text-text-secondary block">Độ ẩm</span>
+<span class="font-headline-md text-headline-md text-chart-humidity tabular-nums font-semibold">80 %</span>
+</div>
+</div>
+<div class="flex items-center gap-2 mt-2">
+<span class="w-2 h-2 rounded-full bg-primary shrink-0"></span>
+<span class="font-caption text-caption text-text-secondary">1 node online</span>
+<span class="text-text-secondary opacity-40">·</span>
+<span class="font-caption text-caption text-text-secondary font-mono">Ping 18ms</span>
+</div>
+</div>
+<div class="pt-space-lg mt-space-md">
+<a class="w-full h-10 rounded-lg bg-bg-surface hover:bg-bg-subtle text-text-primary font-label-md text-label-md flex items-center justify-center gap-2 transition-colors" href="#">
+<span class="">Xem thiết bị</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- Room 2: Phòng room-02 (Unconfigured Name, Offline) -->
+<div class="bg-bg-surface rounded-xl p-space-lg flex flex-col justify-between opacity-85">
+<div>
+<div class="flex items-start justify-between gap-space-sm mb-3">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary">Phòng room-02</h3>
+<p class="font-caption text-caption text-text-secondary font-mono mt-0.5">room-02 · esp32-room-02</p>
+</div>
+<span class="font-label-sm text-label-sm bg-bg-subtle text-text-secondary px-2.5 py-0.5 rounded-full font-medium shrink-0">
+                Chờ cấu hình
+              </span>
+</div>
+<!-- Empty Telemetry State -->
+<div class="my-space-md py-space-lg px-space-md bg-bg-subtle rounded-lg text-center flex flex-col items-center justify-center"><span class="material-symbols-outlined text-[24px] text-text-secondary opacity-50 mb-1">sensors_off</span><span class="font-body-sm text-body-sm text-text-secondary">Chưa có dữ liệu</span></div>
+<div class="flex items-center gap-2 mt-2">
+<span class="w-2 h-2 rounded-full bg-border-control shrink-0"></span>
+<span class="font-caption text-caption text-text-secondary">1 node offline</span>
+<span class="text-text-secondary opacity-40">·</span>
+<span class="font-caption text-caption text-text-secondary">Mất kết nối 2 giờ trước</span>
+</div>
+</div>
+<div class="pt-space-lg mt-space-md">
+<a class="w-full h-10 rounded-lg bg-bg-surface hover:bg-bg-subtle text-text-primary font-label-md text-label-md flex items-center justify-center gap-2 transition-colors" href="#">
+<span class="">Xem thiết bị</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Historical / DHT11 Sensor Insight (Line Chart Section) -->
+<div class="bg-bg-surface rounded-xl p-space-xl flex flex-col gap-space-lg">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-chart-temperature text-[20px]">show_chart</span>
+<h3 class="font-headline-sm text-headline-sm text-text-primary">Nhiệt độ gần đây</h3>
+</div>
+<p class="font-caption text-caption text-text-secondary font-mono mt-0.5">dht11-01 · Phòng khách</p>
+</div>
+<div class="flex items-center gap-space-xs">
+<div class="inline-flex rounded-lg bg-bg-subtle p-0.5">
+<button class="px-3 py-1 rounded-md text-label-sm font-label-sm bg-bg-surface text-primary-container font-semibold" type="button">1 giờ</button>
+<button class="px-3 py-1 rounded-md text-label-sm font-label-sm text-text-secondary hover:text-text-primary" type="button">6 giờ</button>
+</div>
+<a class="font-label-sm text-label-sm text-primary-container hover:underline ml-2 flex items-center gap-0.5" href="#">
+<span class="">Xem thêm trong Lịch sử</span>
+<span class="material-symbols-outlined text-[16px]">arrow_outward</span>
+</a>
+</div>
+</div>
+<div class="flex items-baseline justify-between">
+<div class="flex items-baseline gap-2">
+<span class="font-display-metric text-display-metric text-chart-temperature tabular-nums">30,8 °C</span>
+<span class="font-caption text-caption text-text-secondary">Mẫu lúc <span class="font-mono">14:32:10</span></span>
+</div>
+<div class="flex items-center gap-4 text-caption font-caption text-text-secondary">
+<span class="flex items-center gap-1.5"><span class="w-3 h-0.5 bg-chart-temperature"></span> Nhiệt độ đo được</span>
+<span class="flex items-center gap-1.5"><span class="w-3 h-0.5 bg-danger-text border-t border-dashed"></span> Ngưỡng cảnh báo (32°C)</span>
+</div>
+</div>
+<!-- Strict Non-gradient SVG Line Chart conforming to "Bớt AI" clean hardware rules -->
+<div class="w-full h-48 relative">
+<svg class="w-full h-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 600 180">
+<!-- Grid Lines -->
+<line stroke="#DDE3DC" stroke-width="1" x1="0" x2="600" y1="30" y2="30"></line>
+<line stroke="#DDE3DC" stroke-width="1" x1="0" x2="600" y1="75" y2="75"></line>
+<line stroke="#DDE3DC" stroke-width="1" x1="0" x2="600" y1="120" y2="120"></line>
+<line stroke="#DDE3DC" stroke-width="1" x1="0" x2="600" y1="165" y2="165"></line>
+<!-- Threshold Line (32°C at y=60) -->
+<line opacity="0.8" stroke="#B42318" stroke-dasharray="4 4" stroke-width="1.5" x1="0" x2="600" y1="60" y2="60"></line>
+<text fill="#B42318" font-family="Inter" font-size="11" font-weight="600" x="6" y="55">Ngưỡng báo động 32,0 °C</text>
+<!-- Line Plot (Terracotta #A64B2A) -->
+<path d="M 0 135 
+                     L 50 130 
+                     L 100 128 
+                     L 150 115 
+                     L 200 102 
+                     L 250 85 
+                     L 300 70 
+                     L 350 48 
+                     L 400 42 
+                     L 450 55 
+                     L 500 75 
+                     L 550 82 
+                     L 600 78" fill="none" stroke="#A64B2A" stroke-linecap="square" stroke-width="2.5"></path>
+<!-- Highlight sample point at recent peak (34.2°C) -->
+<circle cx="400" cy="42" fill="#A64B2A" r="4" stroke="#FFFFFF" stroke-width="2"></circle>
+<!-- Current sample point -->
+<circle cx="600" cy="78" fill="#A64B2A" r="4" stroke="#FFFFFF" stroke-width="2"></circle>
+</svg>
+</div>
+<div class="flex items-center justify-between text-caption font-caption text-text-secondary font-mono pt-1">
+<span class="">13:30</span>
+<span class="">13:45</span>
+<span class="">14:00</span>
+<span class="">14:15</span>
+<span class="text-text-primary font-semibold">14:32 (Hiện tại)</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Quick Controls Module (5 Columns) -->
+<div class="lg:col-span-5 flex flex-col gap-space-lg">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-sm text-headline-sm text-text-primary">Điều khiển nhanh</h2>
+<span class="font-caption text-caption text-text-secondary font-mono">room-01</span>
+</div>
+<div class="bg-bg-surface rounded-xl p-space-xl flex flex-col gap-space-lg">
+<!-- Subheader node information -->
+<div class="flex items-center justify-between pb-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-bg-subtle flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[20px]">toggle_on</span>
+</div>
+<div>
+<p class="font-title-md text-title-md text-text-primary">Phòng khách</p>
+<p class="font-caption text-caption text-text-secondary font-mono">esp32-room-01</p>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-medium flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+            Sẵn sàng
+          </span>
+</div>
+<!-- Control Row 1: Đèn LED RGB -->
+<div class="flex flex-col gap-space-md p-space-md rounded-xl bg-bg-app">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-bg-surface flex items-center justify-center text-primary-container shrink-0">
+<span class="material-symbols-outlined text-[22px]">lightbulb</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-title-md text-title-md text-text-primary">Đèn LED</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold" id="led-state-text">Đang bật</span>
+</div>
+<span class="font-caption text-caption text-text-secondary">Chấp thuận lệnh ngay lập tức</span>
+</div>
+</div>
+<!-- Standard Hardware Actuator Toggle Switch (ON State) -->
+<button aria-checked="true" class="w-12 h-7 bg-primary-container rounded-full p-1 transition-colors relative flex items-center focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" id="toggle-led" onclick="handleLedToggle()" role="switch" type="button">
+<span class="w-5 h-5 bg-bg-surface rounded-full transition-transform translate-x-5 block" id="led-thumb"></span>
+</button>
+</div>
+<!-- Color Presets Palette -->
+<div class="flex flex-col gap-space-xs pt-space-xs" id="color-palette-section">
+<div class="flex items-center justify-between">
+<span class="font-caption text-caption text-text-secondary font-medium">Bảng màu cài sẵn (Preset):</span>
+<span class="font-caption text-caption font-mono text-text-primary" id="rgb-value-display">Màu RGB gửi 255,255,255</span>
+</div>
+<div class="grid grid-cols-4 gap-2 pt-1">
+<!-- Preset 1: Trắng (Active Selected with Checkmark) -->
+<button class="color-preset-btn h-10 rounded-lg bg-bg-surface text-text-primary flex items-center justify-center gap-1.5 font-body-sm text-body-sm ring-2 ring-primary-container font-semibold transition-all" onclick="selectColor('white', '255,255,255', this)" type="button">
+<span class="w-3.5 h-3.5 rounded-full bg-bg-surface shrink-0"></span>
+<span class="">Trắng</span>
+<span class="material-symbols-outlined text-[16px] text-primary-container">check</span>
+</button>
+<!-- Preset 2: Đỏ -->
+<button class="color-preset-btn h-10 rounded-lg bg-bg-surface hover:bg-bg-subtle text-text-primary flex items-center justify-center gap-1.5 font-body-sm text-body-sm transition-all" onclick="selectColor('red', '255,0,0', this)" type="button">
+<span class="w-3.5 h-3.5 rounded-full bg-[#E53935] shrink-0"></span>
+<span class="">Đỏ</span>
+</button>
+<!-- Preset 3: Xanh lá -->
+<button class="color-preset-btn h-10 rounded-lg bg-bg-surface hover:bg-bg-subtle text-text-primary flex items-center justify-center gap-1.5 font-body-sm text-body-sm transition-all" onclick="selectColor('green', '0,255,0', this)" type="button">
+<span class="w-3.5 h-3.5 rounded-full bg-[#43A047] shrink-0"></span>
+<span class="">Xanh lá</span>
+</button>
+<!-- Preset 4: Xanh dương -->
+<button class="color-preset-btn h-10 rounded-lg bg-bg-surface hover:bg-bg-subtle text-text-primary flex items-center justify-center gap-1.5 font-body-sm text-body-sm transition-all" onclick="selectColor('blue', '0,0,255', this)" type="button">
+<span class="w-3.5 h-3.5 rounded-full bg-[#1E88E5] shrink-0"></span>
+<span class="">Xanh dương</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Control Row 2: Còi báo (Buzzer) -->
+<div class="flex flex-col gap-space-xs p-space-md rounded-xl bg-bg-app">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-bg-surface flex items-center justify-center text-text-secondary shrink-0">
+<span class="material-symbols-outlined text-[22px]">volume_up</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-title-md text-title-md text-text-primary">Còi báo</span>
+<span class="font-label-sm text-label-sm text-text-secondary" id="buzzer-state-text">Đang tắt</span>
+</div>
+<span class="font-caption text-caption text-text-secondary">Còi sẽ phát âm thanh tại thiết bị</span>
+</div>
+</div>
+<!-- Standard Hardware Actuator Toggle Switch (OFF State) -->
+<button aria-checked="false" class="w-12 h-7 bg-bg-subtle rounded-full p-1 transition-colors relative flex items-center focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" id="toggle-buzzer" onclick="handleBuzzerToggle()" role="switch" type="button">
+<span class="w-5 h-5 bg-bg-surface rounded-full transition-transform translate-x-0 block" id="buzzer-thumb"></span>
+</button>
+</div>
+</div>
+<!-- Hardware Feedback Banner (Truthful ACK State) -->
+
+</div>
+<!-- Quick Room Navigation Card -->
+<div class="bg-bg-surface rounded-xl p-space-lg flex items-center justify-between">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-bg-subtle flex items-center justify-center text-text-primary">
+<span class="material-symbols-outlined text-[22px]">tune</span>
+</div>
+<div>
+<h4 class="font-title-md text-title-md text-text-primary">Cấu hình tham số ngưỡng</h4>
+
+</div>
+</div>
+<a class="h-9 px-3 rounded-lg bg-bg-subtle hover:bg-bg-surface text-text-primary font-label-sm text-label-sm flex items-center gap-1 transition-colors" href="#">
+<span class="">Thiết lập</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<script>
+  let ledActive = true;
+  let buzzerActive = false;
+
+  function acknowledgeAlert() {
+    const banner = document.getElementById('active-incident-banner');
+    if (banner) {
+      banner.classList.add('opacity-40');
+      const btn = document.getElementById('btn-ack');
+      btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">check</span><span>Đã xác nhận (ACK)</span>';
+      btn.disabled = true;
+      btn.classList.add('cursor-not-allowed');
+    }
+  }
+
+  function handleLedToggle() {
+    ledActive = !ledActive;
+    const btn = document.getElementById('toggle-led');
+    const thumb = document.getElementById('led-thumb');
+    const label = document.getElementById('led-state-text');
+    const feedback = document.getElementById('hardware-ack-label');
+    const colorSection = document.getElementById('color-palette-section');
+
+    if (ledActive) {
+      btn.classList.remove('bg-bg-subtle');
+      btn.classList.add('bg-primary-container');
+      btn.setAttribute('aria-checked', 'true');
+      thumb.classList.remove('translate-x-0');
+      thumb.classList.add('translate-x-5');
+      label.innerText = 'Đang bật';
+      label.className = 'font-label-sm text-label-sm text-primary font-semibold';
+      feedback.innerText = 'Thiết bị báo: đèn đang bật.';
+      colorSection.classList.remove('opacity-40', 'pointer-events-none');
+    } else {
+      btn.classList.remove('bg-primary-container');
+      btn.classList.add('bg-bg-subtle');
+      btn.setAttribute('aria-checked', 'false');
+      thumb.classList.remove('translate-x-5');
+      thumb.classList.add('translate-x-0');
+      label.innerText = 'Đang tắt';
+      label.className = 'font-label-sm text-label-sm text-text-secondary font-normal';
+      feedback.innerText = 'Thiết bị báo: đèn đã tắt.';
+      colorSection.classList.add('opacity-40', 'pointer-events-none');
+    }
+  }
+
+  function handleBuzzerToggle() {
+    buzzerActive = !buzzerActive;
+    const btn = document.getElementById('toggle-buzzer');
+    const thumb = document.getElementById('buzzer-thumb');
+    const label = document.getElementById('buzzer-state-text');
+    const feedback = document.getElementById('hardware-ack-label');
+
+    if (buzzerActive) {
+      btn.classList.remove('bg-bg-subtle');
+      btn.classList.add('bg-primary-container');
+      btn.setAttribute('aria-checked', 'true');
+      thumb.classList.remove('translate-x-0');
+      thumb.classList.add('translate-x-5');
+      label.innerText = 'Đang bật';
+      label.className = 'font-label-sm text-label-sm text-danger-text font-semibold';
+      feedback.innerText = 'Thiết bị báo: Còi đang phát âm thanh cảnh báo.';
+    } else {
+      btn.classList.remove('bg-primary-container');
+      btn.classList.add('bg-bg-subtle');
+      btn.setAttribute('aria-checked', 'false');
+      thumb.classList.remove('translate-x-5');
+      thumb.classList.add('translate-x-0');
+      label.innerText = 'Đang tắt';
+      label.className = 'font-label-sm text-label-sm text-text-secondary font-normal';
+      feedback.innerText = 'Thiết bị báo: Còi đã dừng.';
+    }
+  }
+
+  function selectColor(name, rgb, el) {
+    if (!ledActive) return;
+    
+    // Clear checkmarks and highlight classes
+    document.querySelectorAll('.color-preset-btn').forEach(btn => {
+      btn.classList.remove('ring-2', 'ring-primary-container', 'font-semibold');
+      const chk = btn.querySelector('.material-symbols-outlined');
+      if (chk) chk.remove();
+    });
+
+    // Mark clicked button
+    el.classList.add('ring-2', 'ring-primary-container', 'font-semibold');
+    const checkIcon = document.createElement('span');
+    checkIcon.className = 'material-symbols-outlined text-[16px] text-primary-container';
+    checkIcon.innerText = 'check';
+    el.appendChild(checkIcon);
+
+    // Update Telemetry Feedback
+    document.getElementById('rgb-value-display').innerText = 'Màu RGB gửi ' + rgb;
+    document.getElementById('hardware-ack-label').innerText = 'Thiết bị báo: đã đổi màu RGB sang ' + rgb + '.';
+  }
+</script></div></main></div>
+
+</body></html>

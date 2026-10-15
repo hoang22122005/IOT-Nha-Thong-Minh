@@ -13,7 +13,7 @@ function normalizeVietnamese(text) {
     .trim();
 }
 
-export default function VoiceCommandPanel({ selectedDeviceId, supportedActuators = [], sendLightCommand, sendBuzzerCommand }) {
+export default function VoiceCommandPanel({ selectedDeviceId, supportedActuators = [], disabled = false, sendLightCommand, sendBuzzerCommand }) {
   const recognitionRef = useRef(null);
   const [supported, setSupported] = useState(false);
   const [listening, setListening] = useState(false);
@@ -23,10 +23,13 @@ export default function VoiceCommandPanel({ selectedDeviceId, supportedActuators
 
   useEffect(() => {
     setSupported(Boolean(window.SpeechRecognition || window.webkitSpeechRecognition));
-    return () => recognitionRef.current?.stop();
+    return () => { if (recognitionRef.current) { recognitionRef.current.onresult = null; recognitionRef.current.abort(); } };
   }, []);
 
+  useEffect(() => { if (disabled) recognitionRef.current?.abort(); }, [disabled]);
+
   const runCommand = async (spokenText) => {
+    if (disabled) { setError('Thiết bị chưa sẵn sàng để nhận lệnh.'); return; }
     const phrase = normalizeVietnamese(spokenText);
     if ((phrase.includes('den') && !supportedActuators.includes('LED'))
         || (phrase.includes('coi') && !supportedActuators.includes('BUZZER'))) {
@@ -99,7 +102,7 @@ export default function VoiceCommandPanel({ selectedDeviceId, supportedActuators
   return (
     <section className="glass-panel" style={panelStyle}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
-        <Volume2 size={20} color="#a78bfa" />
+        <Volume2 size={20} color="var(--accent)" />
         <div>
           <h2 style={{ fontSize: '1rem', margin: 0 }}>Điều khiển bằng giọng nói (bản thử nghiệm)</h2>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', margin: '4px 0 0' }}>
@@ -113,7 +116,7 @@ export default function VoiceCommandPanel({ selectedDeviceId, supportedActuators
           type="button"
           className={listening ? 'btn btn-danger' : 'btn btn-primary'}
           style={buttonStyle}
-          disabled={!supported || listening}
+          disabled={disabled || !supported || listening}
           onClick={startListening}
         >
           {listening ? <><MicOff size={16} /> Đang nghe...</> : <><Mic size={16} /> Bấm để nói</>}
@@ -128,8 +131,8 @@ export default function VoiceCommandPanel({ selectedDeviceId, supportedActuators
       </p>
       {transcript && <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', margin: '10px 0 0' }}>Bạn nói: “{transcript}”</p>}
       {message && <p role="status" style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', margin: '8px 0 0' }}>{message}</p>}
-      {error && <p role="alert" style={{ color: '#fda4af', fontSize: '0.85rem', margin: '8px 0 0' }}>{error}</p>}
-      {!supported && <p style={{ color: '#fcd34d', fontSize: '0.8rem', margin: '8px 0 0' }}>Trình duyệt hiện tại chưa cung cấp SpeechRecognition.</p>}
+      {error && <p role="alert" style={{ color: 'var(--danger)', fontSize: '0.85rem', margin: '8px 0 0' }}>{error}</p>}
+      {!supported && <p style={{ color: 'var(--warning)', fontSize: '0.8rem', margin: '8px 0 0' }}>Trình duyệt hiện tại chưa cung cấp SpeechRecognition.</p>}
     </section>
   );
 }

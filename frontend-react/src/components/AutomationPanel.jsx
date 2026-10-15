@@ -1,182 +1,74 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Bot, Plus, Trash2, ToggleLeft, ToggleRight } from 'lucide-react';
+import { Pencil, Plus, Save, SlidersHorizontal, Trash2, Zap } from 'lucide-react';
+import { api } from '../lib/api';
+import { deviceName, metricName, number, roomName } from '../lib/iot';
+import { Badge, ConfirmDelete, EmptyState, SectionHeading } from './ui';
 
-const API = '/api/iot/v1/automations';
-const EMPTY_RULE = {
-  name: 'Cảnh báo nhiệt độ',
-  sensorId: 'dht11-01',
-  metric: 'TEMPERATURE',
-  operator: 'GT',
-  threshold: '32',
-  targetDeviceId: 'esp32-room-01',
-  target: 'LED',
-  actionWhenTrue: 'ON',
-  actionWhenFalse: 'OFF',
-  enabled: true,
-  cooldownSeconds: '10',
-};
+const OPERATORS = { GT: 'lớn hơn (>)', GTE: 'lớn hơn hoặc bằng (≥)', LT: 'nhỏ hơn (<)', LTE: 'nhỏ hơn hoặc bằng (≤)', EQ: 'bằng (=)' };
+const freshRule = (device) => ({ name: '', sensorId: Object.keys(device.sensors || {})[0] || device.sensorId || '', metric: 'TEMPERATURE', operator: 'GT', threshold: '',
+  targetDeviceId: device.deviceId || '', target: device.actuators?.includes('LED') ? 'LED' : device.actuators?.includes('BUZZER') ? 'BUZZER' : '', actionWhenTrue: 'ON', actionWhenFalse: '', enabled: true, cooldownSeconds: 10,
+  homeId: device.homeId, roomId: device.roomId });
 
-const inputStyle = {
-  width: '100%',
-  padding: '9px 10px',
-  borderRadius: 8,
-  border: '1px solid rgba(148,163,184,0.28)',
-  background: 'rgba(15,23,42,0.75)',
-  color: 'var(--text-primary)',
-};
-const labelStyle = { display: 'grid', gap: 6, color: 'var(--text-secondary)', fontSize: '0.8rem' };
-
-export default function AutomationPanel({ selectedDeviceId }) {
+export default function AutomationPanel({ devices, selectedDeviceId, connected }) {
   const [rules, setRules] = useState([]);
-  const [form, setForm] = useState({ ...EMPTY_RULE, targetDeviceId: selectedDeviceId });
+  const [form, setForm] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [saving, setSaving] = useState(false);
-
+  const [message, setMessage] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [deleting, setDeleting] = useState(null);
   const refresh = useCallback(async () => {
-    try {
-      const response = await fetch(API);
-      if (!response.ok) throw new Error('Không tải được danh sách luật.');
-      setRules(await response.json());
-    } catch (err) {
-      setError(err.message);
-    }
+    setLoading(true);
+    try { const result = await api('/automations'); if (!Array.isArray(result)) throw new Error('Danh sách quy tắc không hợp lệ.'); setRules(result); setError(''); }
+    catch (err) { setError(err.message); } finally { setLoading(false); }
   }, []);
-
-  useEffect(() => { refresh(); }, [refresh]);
-  useEffect(() => {
-    setForm((previous) => ({ ...previous, targetDeviceId: selectedDeviceId }));
-  }, [selectedDeviceId]);
-
-  const updateField = (event) => {
-    const { name, value } = event.target;
-    setForm((previous) => ({ ...previous, [name]: value }));
+  useEffect(() => { if (connected) refresh(); }, [refresh, connected]);
+  const nodes = Object.values(devices);
+  const sensors = [...new Set(nodes.flatMap((node) => Object.keys(node.sensors || {})))];
+  const sensorMetrics = [...new Set(nodes.flatMap((node) => Object.values(node.sensors || {}).flatMap((sensor) => Object.keys(sensor.measurements || {}))))];
+  const selected = devices[selectedDeviceId] || {};
+  const targetNode = devices[form?.targetDeviceId];
+  const targets = (targetNode?.actuators || []).filter((name) => ['LED', 'BUZZER'].includes(name));
+  const edit = (key, value) => setForm((old) => ({ ...old, [key]: value }));
+  const mutate = async (operation, success) => {
+    setBusy(true); setError(''); setMessage('');
+    try { await operation(); await refresh(); setMessage(success); return true; }
+    catch (err) { setError(err.message); return false; } finally { setBusy(false); }
   };
-
-  const createRule = async (event) => {
+  const save = async (event) => {
     event.preventDefault();
-    setSaving(true);
-    setError('');
-    try {
-      const response = await fetch(API, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...form,
-          threshold: Number(form.threshold),
-          cooldownSeconds: Number(form.cooldownSeconds),
-        }),
-      });
-      const result = await response.json();
-      if (!response.ok) throw new Error(result.error || 'Không tạo được luật.');
-      setForm((previous) => ({ ...EMPTY_RULE, targetDeviceId: previous.targetDeviceId }));
-      await refresh();
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setSaving(false);
-    }
+    const body = { ...form, metric: form.metric.toUpperCase(), threshold: Number(form.threshold), cooldownSeconds: Number(form.cooldownSeconds) };
+    if (!Number.isFinite(body.threshold) || !targets.includes(body.target)) { setError('Kiểm tra ngưỡng và khả năng điều khiển của node đích.'); return; }
+    const saved = await mutate(() => api(`/automations${form.id ? `/${encodeURIComponent(form.id)}` : ''}`, { method: form.id ? 'PUT' : 'POST', body: JSON.stringify(body) }), 'Đã lưu quy tắc.');
+    if (saved) setForm(null);
   };
-
-  const toggleRule = async (rule) => {
-    setError('');
-    try {
-      const response = await fetch(`${API}/${rule.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...rule, enabled: !rule.enabled }),
-      });
-      const result = await response.json();
-      if (!response.ok) throw new Error(result.error || 'Không cập nhật được luật.');
-      await refresh();
-    } catch (err) {
-      setError(err.message);
-    }
-  };
-
-  const deleteRule = async (id) => {
-    setError('');
-    try {
-      const response = await fetch(`${API}/${id}`, { method: 'DELETE' });
-      if (!response.ok) throw new Error('Không xóa được luật.');
-      await refresh();
-    } catch (err) {
-      setError(err.message);
-    }
-  };
-
-  return (
-    <section className="glass-panel" style={{ padding: 24 }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-        <Bot size={20} color="#a78bfa" />
-        <div>
-          <h2 style={{ fontSize: '1rem', margin: 0 }}>Tự động hóa</h2>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', margin: '4px 0 0' }}>
-            Tạo luật “nếu cảm biến đạt điều kiện thì điều khiển thiết bị”.
-          </p>
-        </div>
-      </div>
-
-      <form onSubmit={createRule} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: 12 }}>
-        <label style={labelStyle}>Tên luật<input style={inputStyle} name="name" value={form.name} onChange={updateField} required /></label>
-        <label style={labelStyle}>Mã cảm biến<input style={inputStyle} name="sensorId" value={form.sensorId} onChange={updateField} required /></label>
-        <label style={labelStyle}>Giá trị đo
-          <input style={inputStyle} name="metric" value={form.metric} onChange={updateField}
-            list="measurement-names" pattern="[A-Za-z][A-Za-z0-9_]*" required />
-          <datalist id="measurement-names"><option value="TEMPERATURE" /><option value="HUMIDITY" /></datalist>
-        </label>
-        <label style={labelStyle}>Điều kiện
-          <select style={inputStyle} name="operator" value={form.operator} onChange={updateField}>
-            <option value="GT">lớn hơn (&gt;)</option><option value="GTE">lớn hơn hoặc bằng (≥)</option>
-            <option value="LT">nhỏ hơn (&lt;)</option><option value="LTE">nhỏ hơn hoặc bằng (≤)</option>
-            <option value="EQ">bằng (=)</option>
-          </select>
-        </label>
-        <label style={labelStyle}>Ngưỡng<input style={inputStyle} name="threshold" type="number" step="any" value={form.threshold} onChange={updateField} required /></label>
-        <label style={labelStyle}>Node điều khiển<input style={inputStyle} name="targetDeviceId" value={form.targetDeviceId} onChange={updateField} required /></label>
-        <label style={labelStyle}>Thiết bị
-          <select style={inputStyle} name="target" value={form.target} onChange={updateField}>
-            <option value="LED">LED RGB</option><option value="BUZZER">Còi</option>
-          </select>
-        </label>
-        <label style={labelStyle}>Hành động khi đúng
-          <select style={inputStyle} name="actionWhenTrue" value={form.actionWhenTrue} onChange={updateField}>
-            <option value="ON">Bật</option><option value="OFF">Tắt</option>
-          </select>
-        </label>
-        <label style={labelStyle}>Hành động khi trở về bình thường
-          <select style={inputStyle} name="actionWhenFalse" value={form.actionWhenFalse} onChange={updateField}>
-            <option value="OFF">Tắt</option><option value="ON">Bật</option>
-          </select>
-        </label>
-        <label style={labelStyle}>Thời gian nghỉ (giây)<input style={inputStyle} name="cooldownSeconds" type="number" min="0" max="86400" value={form.cooldownSeconds} onChange={updateField} required /></label>
-        <div style={{ display: 'flex', alignItems: 'end' }}>
-          <button className="btn btn-primary" type="submit" disabled={saving} style={{ width: '100%' }}>
-            <Plus size={16} /> {saving ? 'Đang lưu…' : 'Tạo luật'}
-          </button>
-        </div>
-      </form>
-
-      {error && <p role="alert" style={{ color: '#fda4af', margin: '12px 0 0' }}>{error}</p>}
-
-      <div style={{ display: 'grid', gap: 8, marginTop: 18 }}>
-        {rules.length === 0 && <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Chưa có luật tự động nào.</p>}
-        {rules.map((rule) => (
-          <div key={rule.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: 12, borderRadius: 10, background: 'rgba(15,23,42,0.42)' }}>
-            <button type="button" onClick={() => toggleRule(rule)} aria-label={rule.enabled ? 'Tắt luật' : 'Bật luật'} className="btn btn-secondary" style={{ padding: 7 }}>
-              {rule.enabled ? <ToggleRight size={20} color="#4ade80" /> : <ToggleLeft size={20} />}
-            </button>
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <strong style={{ fontSize: '0.85rem' }}>{rule.name}</strong>
-              <div style={{ color: 'var(--text-muted)', fontSize: '0.75rem', marginTop: 3 }}>
-                {rule.sensorId}: {rule.metric} {rule.operator} {rule.threshold} → {rule.targetDeviceId} / {rule.target} {rule.actionWhenTrue}
-              </div>
-            </div>
-            <button type="button" onClick={() => deleteRule(rule.id)} aria-label="Xóa luật" className="btn btn-secondary" style={{ padding: 7 }}>
-              <Trash2 size={16} color="#fda4af" />
-            </button>
-          </div>
-        ))}
-      </div>
+  return <div className="page-stack"><div className="row-between wrap"><p className="muted">Tự động phản hồi theo giá trị cảm biến</p><button className="btn btn-primary" disabled={!connected || busy} onClick={() => { setForm(freshRule(selected)); setMessage(''); }}><Plus size={17} /> Tạo quy tắc mới</button></div>
+    {error && <div className="inline-notice danger" role="alert">{error} <button className="text-button" onClick={refresh}>Tải lại</button></div>}{message && <div className="inline-notice" role="status">{message}</div>}
+    {form && <section className="panel"><SectionHeading title={form.id ? 'Chỉnh sửa quy tắc' : 'Tạo quy tắc mới'} icon={SlidersHorizontal} /><form onSubmit={save} className="form-stack">
+      <label>Tên quy tắc<input required maxLength={120} value={form.name} onChange={(e) => edit('name', e.target.value)} placeholder="Ví dụ: Bật LED khi nhiệt độ cao" /></label>
+      <fieldset><legend>Điều kiện kích hoạt</legend><div className="form-grid four">
+        <label>Khi cảm biến<select required value={form.sensorId} onChange={(e) => edit('sensorId', e.target.value)}><option value="">Chọn cảm biến</option>{[...new Set([...sensors, form.sensorId].filter(Boolean))].map((id) => <option key={id}>{id}</option>)}</select></label>
+        <label>Đại lượng<input required maxLength={32} pattern="[A-Za-z][A-Za-z0-9_]*" list="rule-metrics" value={form.metric} onChange={(e) => edit('metric', e.target.value)} /><datalist id="rule-metrics">{[...new Set(['temperature', 'humidity', ...sensorMetrics])].map((name) => <option key={name} value={name.toUpperCase()}>{metricName(name)}</option>)}</datalist></label>
+        <label>Phép so sánh<select value={form.operator} onChange={(e) => edit('operator', e.target.value)}>{Object.entries(OPERATORS).map(([key, text]) => <option key={key} value={key}>{text}</option>)}</select></label>
+        <label>Ngưỡng<input required type="number" step="any" value={form.threshold} onChange={(e) => edit('threshold', e.target.value)} /></label>
+      </div></fieldset>
+      <div className="form-grid"><fieldset><legend>Hành động khi thỏa</legend><div className="form-stack">
+        <label>Node đích<select required value={form.targetDeviceId} onChange={(e) => { const node = devices[e.target.value]; setForm((old) => ({ ...old, targetDeviceId: node.deviceId, target: node.actuators?.find((target) => ['LED', 'BUZZER'].includes(target)) || '' })); }}><option value="">Chọn node</option>
+          {!devices[form.targetDeviceId] && form.targetDeviceId && <option value={form.targetDeviceId}>{form.targetDeviceId} (chưa có snapshot)</option>}{nodes.map((node) => <option key={node.deviceId} value={node.deviceId}>{roomName(node)} · {deviceName(node)}</option>)}</select></label>
+        <div className="form-grid"><label>Thiết bị<select required value={form.target} onChange={(e) => edit('target', e.target.value)}><option value="">Chọn thiết bị</option>{[...new Set([...targets, form.target].filter(Boolean))].map((name) => <option key={name} value={name}>{name === 'LED' ? 'Đèn LED' : 'Còi báo động'}</option>)}</select></label>
+          <label>Hành động<select value={form.actionWhenTrue} onChange={(e) => edit('actionWhenTrue', e.target.value)}><option value="ON">Bật (ON)</option><option value="OFF">Tắt (OFF)</option></select></label></div>
+      </div></fieldset><fieldset><legend>Hành động khi không thỏa</legend><label>Khi không thỏa<select value={form.actionWhenFalse || ''} onChange={(e) => edit('actionWhenFalse', e.target.value)}><option value="">Không gửi lệnh</option><option value="OFF">Tắt (OFF)</option><option value="ON">Bật (ON)</option></select></label><p className="muted sample-footer">Quy tắc được đánh giá khi có dữ liệu cảm biến; đây không phải lịch chạy theo giờ.</p></fieldset></div>
+      <div className="row-between wrap"><label>Khoảng chờ giữa các lần gửi lệnh (giây)<input required type="number" min="0" max="86400" step="1" value={form.cooldownSeconds} onChange={(e) => edit('cooldownSeconds', e.target.value)} /></label><label className="checkbox-label"><input type="checkbox" checked={form.enabled} onChange={(e) => edit('enabled', e.target.checked)} /> Đang bật quy tắc</label></div>
+      <div className="rule-preview"><strong>Xem trước quy tắc</strong><p>Khi {metricName(form.metric.toLowerCase())} của {form.sensorId || 'cảm biến'} {OPERATORS[form.operator]}, ngưỡng {number(Number(form.threshold))}, {form.actionWhenTrue === 'ON' ? 'bật' : 'tắt'} {form.target || 'thiết bị'} trên {form.targetDeviceId || 'node'}. Khi không thỏa: {form.actionWhenFalse ? form.actionWhenFalse === 'ON' ? 'bật' : 'tắt' : 'không gửi lệnh'}.</p></div>
+      {!targets.length && <p className="text-warning">Node đích chưa công bố LED hoặc BUZZER. Chọn node có khả năng phù hợp để lưu.</p>}
+      <div className="action-group justify-end"><button type="button" className="btn btn-secondary" disabled={busy} onClick={() => setForm(null)}>Hủy</button><button className="btn btn-primary" disabled={busy || !connected || !targets.length}><Save size={16} />{busy ? 'Đang lưu…' : 'Lưu quy tắc'}</button></div>
+    </form></section>}
+    <section className="panel flush"><div className="panel-padding"><SectionHeading title="Danh sách quy tắc đã lưu" icon={Zap}><Badge>{rules.length} quy tắc</Badge></SectionHeading></div>
+      {loading ? <EmptyState title={connected ? 'Đang tải quy tắc…' : 'Chờ kết nối máy chủ'} /> : rules.length ? <div className="table-scroll"><table><thead><tr><th>Tên quy tắc</th><th>Điều kiện kích hoạt</th><th>Đích thực hiện</th><th>Khoảng chờ</th><th>Trạng thái</th><th>Thao tác</th></tr></thead><tbody>{rules.map((rule) => <tr key={rule.id}>
+        <td><strong>{rule.name}</strong></td><td>{rule.sensorId} · {metricName(rule.metric.toLowerCase())} {OPERATORS[rule.operator]} {number(rule.threshold)}</td><td>{rule.targetDeviceId}<p>{rule.target} → {rule.actionWhenTrue}</p></td><td>{rule.cooldownSeconds} giây</td><td><button className="switch" role="switch" aria-label={`Bật/tắt quy tắc ${rule.name}`} aria-checked={rule.enabled} disabled={busy || !connected} onClick={() => mutate(() => api(`/automations/${encodeURIComponent(rule.id)}`, { method: 'PUT', body: JSON.stringify({ ...rule, enabled: !rule.enabled }) }), 'Đã cập nhật trạng thái quy tắc.')}><span /></button><p className="muted">{rule.enabled ? 'Đang bật' : 'Đang tắt'}</p></td>
+        <td><div className="action-group"><button className="btn btn-secondary icon-button" disabled={busy} aria-label={`Sửa ${rule.name}`} onClick={() => setForm({ ...rule })}><Pencil size={16} /></button><button className="btn btn-danger icon-button" disabled={busy || !connected} aria-label={`Xóa ${rule.name}`} onClick={() => setDeleting(rule)}><Trash2 size={16} /></button></div></td>
+      </tr>)}</tbody></table></div> : <EmptyState title="Chưa có quy tắc tự động">Tạo điều kiện dựa trên số đo để điều khiển LED hoặc còi.</EmptyState>}
+      {deleting && <ConfirmDelete name={deleting.name} busy={busy} onCancel={() => setDeleting(null)} onConfirm={async () => { if (await mutate(() => api(`/automations/${encodeURIComponent(deleting.id)}`, { method: 'DELETE' }), 'Đã xóa quy tắc.')) setDeleting(null); }} />}
     </section>
-  );
+  </div>;
 }

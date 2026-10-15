@@ -5,6 +5,7 @@ This project follows the design in `PlatformIO/Projects/IOT/docs/Ke_hoach_Thiet_
 For a beginner-friendly view of what has actually been verified and what remains, see [`docs/TIEN_DO_DU_AN.md`](docs/TIEN_DO_DU_AN.md).
 For the module data format and steps to add hardware, see [`docs/KIEN_TRUC_MODULE.md`](docs/KIEN_TRUC_MODULE.md).
 For the database design mapped to the Use Cases, see [`docs/THIET_KE_CSDL_THEO_USECASE.md`](docs/THIET_KE_CSDL_THEO_USECASE.md).
+For the implemented UI and remaining backend contracts, see [`docs/PLAN_FRONTEND_BACKEND.md`](docs/PLAN_FRONTEND_BACKEND.md). The design references are in `UI_UX_IOT`; the dashboard has six task pages and uses the existing REST/WebSocket backend.
 
 ## How the pieces work
 

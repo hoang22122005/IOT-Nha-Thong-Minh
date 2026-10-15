@@ -1,0 +1,335 @@
+<!DOCTYPE html><html lang="vi"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"on-surface":"#151e18","secondary-fixed":"#d7e6da","surface-container-highest":"#dbe5dc","inverse-on-surface":"#e9f3ea","error":"#ba1a1a","warning-text":"#80530E","accent-soft":"#E7F0E9","error-container":"#ffdad6","on-secondary-fixed-variant":"#3d4a41","on-primary":"#ffffff","tertiary-container":"#994121","outline-variant":"#bfc9c1","on-secondary":"#ffffff","surface-container-high":"#e1ebe1","on-primary-fixed":"#002112","on-error-container":"#93000a","bg-surface":"#FFFFFF","on-primary-container":"#a1e3bd","tertiary-fixed-dim":"#ffb59c","surface-tint":"#2a6a4b","secondary-fixed-dim":"#bccabf","on-surface-variant":"#404943","tertiary-fixed":"#ffdbcf","surface-container":"#e6f1e7","secondary-container":"#d7e6da","on-tertiary":"#ffffff","on-secondary-container":"#5a685e","surface-bright":"#f2fcf2","outline":"#707972","surface-container-low":"#ecf6ed","primary":"#054f33","surface":"#f2fcf2","background":"#f2fcf2","inverse-surface":"#29332c","text-secondary":"#566159","inverse-primary":"#93d4af","warning-bg":"#FFF5DF","surface-container-lowest":"#ffffff","surface-dim":"#d3ddd3","on-error":"#ffffff","on-tertiary-fixed-variant":"#7d2d0e","surface-variant":"#dbe5dc","border-control":"#7B897F","tertiary":"#7a2b0b","bg-app":"#F6F7F4","primary-fixed-dim":"#93d4af","danger-text":"#B42318","border-default":"#DDE3DC","primary-fixed":"#aff1ca","on-secondary-fixed":"#121e17","chart-humidity":"#2B6A91","on-tertiary-fixed":"#390c00","danger-bg":"#FEF0ED","on-primary-fixed-variant":"#0a5135","bg-subtle":"#EEF1EC","chart-temperature":"#A64B2A","accent-hover":"#1E5239","secondary":"#546258","text-primary":"#202923","on-tertiary-container":"#ffc9b7","on-background":"#151e18","primary-container":"#276749"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-2xl":"2rem","gutter-desktop":"1.5rem","space-md":"0.75rem","space-xs":"0.25rem","margin-desktop":"2rem","space-lg":"1rem","space-sm":"0.5rem","margin":"1rem","gutter":"1rem","margin-tablet":"1.5rem","space-xl":"1.5rem"},"fontFamily":{"headline-md":["Inter"],"body-md":["Inter"],"caption":["Inter"],"headline-lg-mobile":["Inter"],"label-sm":["Inter"],"headline-sm":["Inter"],"title-md":["Inter"],"body-lg":["Inter"],"display-metric":["Inter"],"label-md":["Inter"],"body-sm":["Inter"],"headline-lg":["Inter"]},"fontSize":{"headline-md":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-md":["15px",{"lineHeight":"22px","letterSpacing":"0","fontWeight":"400"}],"caption":["13px",{"lineHeight":"18px","letterSpacing":"0","fontWeight":"400"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-sm":["13px",{"lineHeight":"18px","letterSpacing":"0.01em","fontWeight":"500"}],"headline-sm":["18px",{"lineHeight":"26px","letterSpacing":"0","fontWeight":"600"}],"title-md":["16px",{"lineHeight":"24px","letterSpacing":"0","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"24px","letterSpacing":"0","fontWeight":"400"}],"display-metric":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"600"}],"label-md":["15px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}],"body-sm":["14px",{"lineHeight":"20px","letterSpacing":"0","fontWeight":"400"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.015em","fontWeight":"600"}]}}}};</script></head><body class="bg-bg-app font-body-md text-text-primary min-h-screen"><aside class="fixed left-0 top-0 h-screen w-[224px] bg-bg-surface z-50 flex flex-col justify-between p-space-lg"><div class="flex flex-col"><div class="flex items-center gap-space-sm mb-space-xl pb-space-md"><img alt="Logo Nhà của tôi" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1U9cnT3DytXq5yQE9E5WGFqYbEEmcSfctJh3VKzhGKQRFvJjTi_IJFqucGCPhNinSnHp8s2AsotqvTDuzMbCueqiU3BrtwwRwdcWD7GV1lAipxR_qiN8NNBLd-1zL4NRqKnyb9kuKZMqH_uAU0eWJyR2Xd8B6TYWVaF8HemRg510INQdJS80Sr2W6FP176frYLZRL4Xn5IT4qyX0dmndR_7yPCccfa2KFzIfBzwNUsNZV7Iuw0hPgXM4FQ"><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-text-primary leading-tight">Nhà của tôi</span><span class="font-caption text-caption text-text-secondary leading-tight">Bảng điều khiển</span></div></div><nav class="flex flex-col gap-space-xs" data-active-classes="bg-accent-soft text-primary-container font-semibold rounded-lg"><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg font-body-sm text-body-sm text-text-secondary hover:bg-bg-subtle hover:text-text-primary transition-colors" data-path="tong-quan" href="#"><span class="material-symbols-outlined text-[20px]">dashboard</span><span class="">Tổng quan</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg font-body-sm text-body-sm text-text-secondary hover:bg-bg-subtle hover:text-text-primary transition-colors" data-path="phong-va-thiet-bi" href="#"><span class="material-symbols-outlined text-[20px]">meeting_room</span><span class="">Phòng &amp; thiết bị</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg font-body-sm text-body-sm text-text-secondary hover:bg-bg-subtle hover:text-text-primary transition-colors" data-path="ngu-canh" href="#"><span class="material-symbols-outlined text-[20px]">auto_mode</span><span class="">Ngữ cảnh</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg font-body-sm text-body-sm text-text-secondary hover:bg-bg-subtle hover:text-text-primary transition-colors" data-path="tu-dong-hoa" href="#"><span class="material-symbols-outlined text-[20px]">bolt</span><span class="">Tự động hóa</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg font-body-sm text-body-sm text-text-secondary hover:bg-bg-subtle hover:text-text-primary transition-colors" data-path="lich-su" href="#"><span class="material-symbols-outlined text-[20px]">history</span><span class="">Lịch sử</span></a><a aria-current="page" class="flex items-center gap-space-md px-space-md py-space-sm transition-colors bg-accent-soft text-primary-container font-semibold rounded-lg" data-path="canh-bao" href="#"><span class="material-symbols-outlined text-[20px]">warning</span><span class="">Cảnh báo</span></a></nav></div><div class="pt-space-md"><button class="w-full flex items-center gap-space-md px-space-md py-space-sm rounded-lg font-body-sm text-body-sm text-text-secondary hover:bg-bg-subtle hover:text-text-primary transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">info</span><span class="">Thông tin hệ thống</span></button></div></aside><div class="pl-[224px]"><header class="fixed top-0 left-[224px] right-0 h-16 bg-bg-surface z-40 px-space-2xl flex items-center justify-between"><div class="flex items-center gap-space-md"><span class="font-headline-sm text-headline-sm text-text-primary">Bảng điều khiển</span></div><div class="flex items-center gap-space-xl"><div class="flex items-center gap-space-xs font-label-sm text-label-sm text-primary-container bg-accent-soft px-space-md py-1 rounded-full"><span class="w-2 h-2 rounded-full bg-primary-container"></span><span class="">Đã kết nối máy chủ</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="w-full pt-16 bg-bg-app"><div class="max-w-[1280px] mx-auto p-space-2xl"><div class="flex flex-col w-full gap-space-xl">
+<!-- Top System Telemetry Banner: Offline Node Warning -->
+<div class="w-full bg-danger-bg text-danger-text rounded-xl p-space-lg flex items-start justify-between shadow-sm">
+<div class="flex items-start gap-space-md">
+<span class="material-symbols-outlined text-[24px] mt-0.5 text-danger-text" style="font-variation-settings: 'FILL' 1;">cloud_off</span>
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-sm text-headline-sm text-danger-text">esp32-room-02 offline</span>
+<span class="px-2 py-0.5 rounded-full text-caption font-caption bg-surface-container-lowest text-danger-text font-medium">Cảm biến mất kết nối</span>
+</div>
+<p class="font-body-md text-body-md text-text-primary">Mất kết nối thiết bị. Cảnh báo trước đó vẫn được giữ theo nguyên tắc an toàn.</p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="px-space-md py-1.5 rounded-lg font-label-sm text-label-sm bg-surface-container-lowest text-text-primary hover:bg-bg-subtle transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">refresh</span>
+<span class="">Kiểm tra gói tin</span>
+</button>
+</div>
+</div>
+<!-- Page Header & Context Metrics -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-lg">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-space-sm text-text-secondary">
+<span class="material-symbols-outlined text-[18px]">security</span>
+<span class="font-label-sm text-label-sm tracking-wider uppercase">Giám sát &amp; Ngưỡng an toàn</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-text-primary">Cảnh báo</h1>
+<p class="font-body-md text-body-md text-text-secondary">Theo dõi và xử lý sự cố thiết bị</p>
+</div>
+<!-- Architectural Quick Counter -->
+<div class="flex items-center gap-space-md bg-surface-container-low px-space-lg py-space-sm rounded-xl">
+<div class="flex flex-col">
+<span class="font-caption text-caption text-text-secondary uppercase">Trạng thái kênh sự kiện</span>
+<span class="font-headline-sm text-headline-sm text-primary flex items-center gap-1.5 font-mono">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+          REALTIME · MQTT ACTIVE
+        </span>
+</div>
+</div>
+</div>
+<!-- Explanatory Technical Note (Active vs Acknowledged Logic) -->
+
+<!-- Interactive Filter Toolbar -->
+<div class="flex items-center justify-between gap-space-md flex-wrap">
+<div class="inline-flex p-1 bg-surface-container-low rounded-xl gap-1" id="alert-tabs">
+<button class="filter-tab px-space-md py-1.5 rounded-lg font-label-sm text-label-sm transition-colors bg-bg-surface text-text-primary shadow-sm font-semibold flex items-center gap-1.5" data-filter="all" type="button">
+<span class="">Tất cả</span>
+<span class="w-5 h-5 rounded-full bg-surface-container text-text-secondary flex items-center justify-center text-caption font-mono">3</span>
+</button>
+<button class="filter-tab px-space-md py-1.5 rounded-lg font-label-sm text-label-sm text-text-secondary hover:text-text-primary hover:bg-bg-subtle transition-colors flex items-center gap-1.5" data-filter="ongoing" type="button">
+<span class="">Đang diễn ra</span>
+<span class="w-5 h-5 rounded-full bg-danger-bg text-danger-text flex items-center justify-center text-caption font-mono font-medium">1</span>
+</button>
+<button class="filter-tab px-space-md py-1.5 rounded-lg font-label-sm text-label-sm text-text-secondary hover:text-text-primary hover:bg-bg-subtle transition-colors flex items-center gap-1.5" data-filter="acked" type="button">
+<span class="">Đã xem</span>
+<span class="w-5 h-5 rounded-full bg-surface-container text-text-secondary flex items-center justify-center text-caption font-mono">2</span>
+</button>
+<button class="filter-tab px-space-md py-1.5 rounded-lg font-label-sm text-label-sm text-text-secondary hover:text-text-primary hover:bg-bg-subtle transition-colors flex items-center gap-1.5" data-filter="resolved" type="button">
+<span class="">Đã kết thúc</span>
+<span class="w-5 h-5 rounded-full bg-accent-soft text-primary-container flex items-center justify-center text-caption font-mono">2</span>
+</button>
+</div>
+<!-- Supplementary Micro Tools -->
+<div class="flex items-center gap-space-sm text-caption font-caption text-text-secondary">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span class="">Tự động đồng bộ mỗi 5s</span>
+</div>
+</div>
+<!-- Detailed Table of Alerts -->
+<div class="w-full bg-bg-surface rounded-xl overflow-hidden shadow-sm">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-text-secondary font-label-sm text-label-sm">
+<th class="py-space-md px-space-lg uppercase font-semibold">Thời gian</th>
+<th class="py-space-md px-space-lg uppercase font-semibold">Vị trí &amp; Node</th>
+<th class="py-space-md px-space-lg uppercase font-semibold">Nội dung cảnh báo</th>
+<th class="py-space-md px-space-lg uppercase font-semibold text-center">Trạng thái diễn ra</th>
+<th class="py-space-md px-space-lg uppercase font-semibold text-center">Trạng thái xem</th>
+<th class="py-space-md px-space-lg uppercase font-semibold text-right">Thao tác</th>
+</tr>
+</thead>
+<tbody class="divide-y-0" id="alerts-table-body">
+<!-- Row 1: Đang diễn ra & Chưa xem (Highlighted: bg-danger-bg) -->
+<tr class="bg-danger-bg text-text-primary transition-colors hover:bg-opacity-80" data-row-type="ongoing unacked">
+<td class="py-space-lg px-space-lg whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-danger-text font-mono font-semibold">14:30:15</span>
+<span class="font-caption text-caption text-text-secondary">2 phút trước</span>
+</div>
+</td>
+<td class="py-space-lg px-space-lg whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-text-primary">Phòng khách</span>
+<span class="font-caption text-caption text-text-secondary font-mono">esp32-room-01</span>
+</div>
+</td>
+<td class="py-space-lg px-space-lg">
+<div class="flex flex-col max-w-md">
+<div class="flex items-center gap-1.5 font-body-md text-body-md font-semibold text-danger-text">
+<span class="material-symbols-outlined text-[18px]">thermostat</span>
+<span class="">Nhiệt độ vượt ngưỡng: 34,2 °C</span>
+</div>
+<span class="font-caption text-caption text-text-secondary">Ngưỡng: 32,0 °C · DHT22</span>
+</div>
+</td>
+<td class="py-space-lg px-space-lg text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-danger-text text-on-error font-medium shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-on-error animate-ping"></span>
+<span class="">Đang diễn ra</span>
+</span>
+</td>
+<td class="py-space-lg px-space-lg text-center whitespace-nowrap" id="ack-status-1">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-warning-bg text-warning-text font-semibold">
+<span class="material-symbols-outlined text-[14px]">visibility_off</span>
+<span class="">Chưa xem</span>
+</span>
+</td>
+<td class="py-space-lg px-space-lg text-right whitespace-nowrap">
+<div class="flex items-center justify-end gap-space-sm" id="ack-actions-1">
+<button class="h-10 px-space-md rounded-lg bg-primary-container text-on-primary hover:bg-accent-hover font-label-sm text-label-sm flex items-center gap-1.5 transition-colors shadow-sm" onclick="acknowledgeAlert(1)" type="button">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span class="">Đã xem (ACK)</span>
+</button>
+<button class="h-10 px-space-md rounded-lg bg-surface-container-lowest text-text-primary hover:bg-bg-subtle font-label-sm text-label-sm flex items-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">settings_remote</span>
+<span class="">Xem thiết bị</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2: Đang diễn ra & Đã xem -->
+<tr class="bg-bg-surface text-text-primary transition-colors hover:bg-bg-subtle" data-row-type="ongoing acked">
+<td class="py-space-lg px-space-lg whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-text-primary font-mono font-medium">14:25:00</span>
+<span class="font-caption text-caption text-text-secondary">7 phút trước</span>
+</div>
+</td>
+<td class="py-space-lg px-space-lg whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-text-primary">Phòng khách</span>
+<span class="font-caption text-caption text-text-secondary font-mono">esp32-room-01</span>
+</div>
+</td>
+<td class="py-space-lg px-space-lg">
+<div class="flex flex-col max-w-md">
+<div class="flex items-center gap-1.5 font-body-md text-body-md text-text-primary font-medium">
+<span class="material-symbols-outlined text-[18px] text-chart-temperature">thermostat</span>
+<span class="">Nhiệt độ cảnh báo mức 1: 32,5 °C</span>
+</div>
+
+</div>
+</td>
+<td class="py-space-lg px-space-lg text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-danger-bg text-danger-text font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-danger-text"></span>
+<span class="">Đang diễn ra</span>
+</span>
+</td>
+<td class="py-space-lg px-space-lg text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-surface-container text-text-secondary font-medium">
+<span class="material-symbols-outlined text-[14px]">done_all</span>
+<span class="">Đã xem lúc 14:26</span>
+</span>
+</td>
+<td class="py-space-lg px-space-lg text-right whitespace-nowrap">
+<div class="flex items-center justify-end">
+<button class="h-10 px-space-md rounded-lg bg-surface-container-low text-text-primary hover:bg-bg-subtle font-label-sm text-label-sm flex items-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">settings_remote</span>
+<span class="">Xem thiết bị</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3: Đã kết thúc & Đã xem -->
+<tr class="bg-surface-container-low text-text-primary transition-colors hover:bg-surface-container" data-row-type="resolved acked">
+<td class="py-space-lg px-space-lg whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-text-primary font-mono font-medium">18:40:12</span>
+<span class="font-caption text-caption text-text-secondary">Hôm qua</span>
+</div>
+</td>
+<td class="py-space-lg px-space-lg whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-text-primary">Phòng khách</span>
+<span class="font-caption text-caption text-text-secondary font-mono">esp32-room-01</span>
+</div>
+</td>
+<td class="py-space-lg px-space-lg">
+<div class="flex flex-col max-w-md">
+<div class="flex items-center gap-1.5 font-body-md text-body-md text-text-primary">
+<span class="material-symbols-outlined text-[18px] text-primary">check_circle</span>
+<span class="">Nhiệt độ vượt ngưỡng đã hạ về mức an toàn: 29,4 °C</span>
+</div>
+
+</div>
+</td>
+<td class="py-space-lg px-space-lg text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-accent-soft text-primary-container font-semibold">
+<span class="material-symbols-outlined text-[14px]">task_alt</span>
+<span class="">Đã kết thúc</span>
+</span>
+</td>
+<td class="py-space-lg px-space-lg text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-surface-container text-text-secondary font-medium">
+<span class="material-symbols-outlined text-[14px]">done</span>
+<span class="">Đã xem</span>
+</span>
+</td>
+<td class="py-space-lg px-space-lg text-right whitespace-nowrap">
+<div class="flex items-center justify-end">
+<button class="h-10 px-space-md rounded-lg bg-surface-container-lowest text-text-primary hover:bg-bg-subtle font-label-sm text-label-sm flex items-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">info</span>
+<span class="">Chi tiết</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Telemetry Log Bar -->
+<div class="p-space-md bg-surface-container-low flex flex-col sm:flex-row items-center justify-between text-caption font-caption text-text-secondary gap-2">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="">Lưu trữ cục bộ</span>
+</div>
+<div class="flex items-center gap-space-md">
+<span class="">Hiển thị 3 trên 3 bản ghi</span>
+<a class="font-label-sm text-label-sm text-primary-container hover:underline" href="#">Xuất bản ghi (.CSV)</a>
+</div>
+</div>
+</div>
+<!-- Operational Diagnostics Architecture Module -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
+<!-- Card 1: Sensor Signal Status -->
+<div class="bg-bg-surface p-space-lg rounded-xl flex flex-col gap-space-sm shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-secondary uppercase">Cảm biến nhiệt/ẩm</span>
+<span class="material-symbols-outlined text-[18px] text-primary">sensors</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-display-metric text-display-metric text-text-primary font-mono">1</span>
+<span class="font-body-md text-body-md text-danger-text font-medium">Vượt ngưỡng</span>
+</div>
+
+</div>
+<!-- Card 2: Buzzer / Siren Actuation State -->
+<div class="bg-bg-surface p-space-lg rounded-xl flex flex-col gap-space-sm shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-secondary uppercase">Còi báo động vật lý</span>
+<span class="material-symbols-outlined text-[18px] text-chart-temperature">volume_up</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-display-metric text-display-metric text-chart-temperature font-mono">BẬT</span>
+<span class="font-body-md text-body-md text-text-secondary">Mức âm 85dB</span>
+</div>
+
+</div>
+<!-- Card 3: Mesh Health & Delivery -->
+<div class="bg-bg-surface p-space-lg rounded-xl flex flex-col gap-space-sm shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-secondary uppercase">Độ trễ hạ tầng</span>
+<span class="material-symbols-outlined text-[18px] text-text-secondary">network_check</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-display-metric text-display-metric text-text-primary font-mono">14<span class="text-headline-sm font-normal">ms</span></span>
+<span class="font-body-md text-body-md text-primary font-medium">Cục bộ</span>
+</div>
+
+</div>
+</div>
+</div>
+<script>
+  // Filter Tabs Interaction
+  document.querySelectorAll('#alert-tabs .filter-tab').forEach(button => {
+    button.addEventListener('click', () => {
+      document.querySelectorAll('#alert-tabs .filter-tab').forEach(b => {
+        b.classList.remove('bg-bg-surface', 'text-text-primary', 'shadow-sm', 'font-semibold');
+        b.classList.add('text-text-secondary');
+      });
+      button.classList.add('bg-bg-surface', 'text-text-primary', 'shadow-sm', 'font-semibold');
+      button.classList.remove('text-text-secondary');
+
+      const filter = button.getAttribute('data-filter');
+      const rows = document.querySelectorAll('#alerts-table-body tr');
+
+      rows.forEach(row => {
+        const types = row.getAttribute('data-row-type') || '';
+        if (filter === 'all') {
+          row.style.display = '';
+        } else if (filter === 'ongoing') {
+          row.style.display = types.includes('ongoing') ? '' : 'none';
+        } else if (filter === 'acked') {
+          row.style.display = types.includes('acked') ? '' : 'none';
+        } else if (filter === 'resolved') {
+          row.style.display = types.includes('resolved') ? '' : 'none';
+        }
+      });
+    });
+  });
+
+  // Acknowledge Action (ACK) Handler
+  function acknowledgeAlert(alertId) {
+    const statusCol = document.getElementById(`ack-status-${alertId}`);
+    const actionsCol = document.getElementById(`ack-actions-${alertId}`);
+    const row = statusCol.closest('tr');
+
+    if (statusCol && actionsCol && row) {
+      // Update status badge
+      statusCol.innerHTML = `
+        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-surface-container text-text-secondary font-medium">
+          <span class="material-symbols-outlined text-[14px]">done_all</span>
+          <span>Đã xem vừa xong</span>
+        </span>
+      `;
+
+      // Remove the ACK button and keep only device control button
+      actionsCol.innerHTML = `
+        <button type="button" class="h-10 px-space-md rounded-lg bg-surface-container-lowest text-text-primary hover:bg-bg-subtle font-label-sm text-label-sm flex items-center gap-1 transition-colors">
+          <span class="material-symbols-outlined text-[16px]">settings_remote</span>
+          <span>Xem thiết bị</span>
+        </button>
+      `;
+
+      // Update data attribute for filtering
+      row.setAttribute('data-row-type', 'ongoing acked');
+    }
+  }
+</script></div></main></div>
+
+</body></html>

@@ -53,3 +53,9 @@ Redis đang giữ trạng thái mới nhất, không làm kho lịch sử. Backe
 ## Bước tiếp theo
 
 Ưu tiên tiếp theo: (1) đưa node 1 online lại và xác nhận dữ liệu mới lên dashboard; (2) xây tài khoản/đăng nhập với mật khẩu băm và bảo vệ API/WebSocket qua PostgreSQL; (3) giữ Redis làm trạng thái mới nhất, MongoDB làm lịch sử; (4) thêm Redis Pub/Sub khi cần nhiều backend; (5) thử node 2 khi có board thứ hai. DHT11 và ngưỡng 32°C chỉ là demo, không dùng làm đầu báo cháy thực tế. Trước khi upload firmware, đóng Serial Monitor đang giữ cổng COM8 nếu nó vẫn mở.
+
+## Cập nhật frontend theo thiết kế — 14/10/2026
+
+Đã triển khai giao diện sáng theo 6 màn hình trong `UI_UX_IOT`, với điều hướng riêng, điều khiển LED/còi theo capability, form tạo/sửa ngữ cảnh và quy tắc, lịch sử có CSV/bảng, cảnh báo active/ACK độc lập. Giao diện sử dụng REST/WebSocket hiện tại; giữ rõ dữ liệu cũ/offline và không tạo node hoặc số đo minh họa.
+
+Kế hoạch bàn giao backend, thứ tự ưu tiên và hợp đồng API đề xuất: [PLAN_FRONTEND_BACKEND.md](PLAN_FRONTEND_BACKEND.md). Đây không phải xác nhận các API mới đã được làm. Kiểm tra frontend không thay thế xác nhận trên trình duyệt, microphone và ESP32 thật; chưa gửi lệnh tới phần cứng trong đợt chỉnh UI này.
